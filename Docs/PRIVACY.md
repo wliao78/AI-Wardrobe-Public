@@ -14,4 +14,4 @@ Delete individual garments or body photos, or use “Delete all local data” to
 
 For privacy requests, use the support page below. Do not post photos, keys or sensitive information in public issues. This policy may be updated with releases; review it before consenting to new processing.
 
-Support: https://github.com/wliao78/AI-Wardrobe-Public/issues
+Support: https://github.com/wliao78/AI-Wardrobe-Support/issues

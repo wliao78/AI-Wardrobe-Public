@@ -43,7 +43,7 @@ enum AIProvider: String, Codable, CaseIterable, Identifiable {
         case .anthropic: "https://www.anthropic.com/legal/privacy"
         case .deepseek: "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html"
         case .qwen: "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-privacy-policy"
-        case .custom: "https://github.com/wliao78/AI-Wardrobe-Public/blob/main/Docs/PRIVACY.md"
+        case .custom: "https://wliao78.github.io/AI-Wardrobe-Support/"
         }
         return URL(string: address)!
     }
@@ -65,8 +65,8 @@ struct AIConfiguration: Codable, Sendable {
         return value
     }
     func save() { UserDefaults.standard.set(try? JSONEncoder().encode(self), forKey: "publicAIConfiguration") }
-    static func eraseAll() {
-        for provider in AIProvider.allCases { try? KeyVault.save("", provider: provider) }
+    static func eraseAll() throws {
+        for provider in AIProvider.allCases { try KeyVault.save("", provider: provider) }
         UserDefaults.standard.removeObject(forKey: "publicAIConfiguration")
     }
 }
@@ -88,7 +88,11 @@ enum KeyVault {
     }
     static func save(_ key: String, provider: AIProvider) throws {
         let query = query(provider)
-        if key.isEmpty { SecItemDelete(query as CFDictionary); return }
+        if key.isEmpty {
+            let status = SecItemDelete(query as CFDictionary)
+            guard status == errSecSuccess || status == errSecItemNotFound else { throw AIError.keyStorage }
+            return
+        }
         let update = [kSecValueData as String: Data(key.utf8)]
         let status = SecItemUpdate(query as CFDictionary, update as CFDictionary)
         if status == errSecSuccess { return }

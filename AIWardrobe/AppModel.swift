@@ -54,6 +54,7 @@ final class WardrobeStore {
     var error: String?
     var epoch = UUID()
     private let file: URL
+    private var storageReadable = true
 
     init() {
         let folder = URL.applicationSupportDirectory.appending(path: "PublicWardrobe", directoryHint: .isDirectory)
@@ -67,7 +68,7 @@ final class WardrobeStore {
                 data = try JSONDecoder().decode(WardrobeData.self, from: Data(contentsOf: file))
             }
             if !data.initialized { addDemo(); data.initialized = true; save() }
-        } catch { self.error = L("storageError") }
+        } catch { storageReadable = false; self.error = L("storageError") }
     }
 
     var avatar: UIImage? {
@@ -78,6 +79,7 @@ final class WardrobeStore {
     var usesDefaultAvatar: Bool { data.bodyPhotos.count < 4 }
 
     func save() {
+        guard storageReadable else { self.error = L("storageError"); return }
         do {
             try JSONEncoder().encode(data).write(to: file, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
         } catch { self.error = L("storageError") }
@@ -106,9 +108,11 @@ final class WardrobeStore {
     }
 
     func erase() {
+        do { try AIConfiguration.eraseAll() }
+        catch { self.error = error.localizedDescription; return }
         epoch = UUID()
+        storageReadable = true
         data = WardrobeData(); data.initialized = true
-        AIConfiguration.eraseAll()
         URLCache.shared.removeAllCachedResponses()
         save()
     }

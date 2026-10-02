@@ -1,0 +1,11 @@
+{
+  "locale": "zh-Hant",
+  "name": "AI衣櫥",
+  "subtitle": "用已有衣物，搭出新靈感",
+  "promotionalText": "拍下衣物，整理衣櫥，探索通勤、休閒與戶外搭配。自選AI服務商，使用自己的API Key體驗對話搭配與效果圖。",
+  "description": "重新發現，你已經擁有的好衣服。\n\nAI衣櫥將衣物整理、日常搭配與可選AI試穿放進清爽的iPhone應用。先體驗三套示範服飾，再建立自己的衣櫥。\n\n衣物一目了然\n拍照或從相簿選擇衣物，在本機處理圖片，盡量保留完整袖口、衣襬與輪廓。填寫名稱、類別和顏色，在整齊網格中瀏覽與搜尋，點擊即可查看大圖。\n\n為今天尋找搭配\n選擇通勤、休閒或戶外，換一套尋找新組合，收藏喜歡的搭配。可選當地天氣提供溫度背景，單位跟隨手機地區。基本衣櫥和離線組合無需API Key。\n\nAI服務商，由你選擇\n對話搭配可接入OpenAI、Google Gemini、Anthropic Claude、DeepSeek、阿里雲Qwen及相容HTTPS介面。支援的OpenAI與Google Gemini圖片模型可依所選衣物和模特照片產生試穿參考圖。模型可用性取決於服務商及帳號權限。\n\n從預設模特到個人形象\n內建虛構男女AI模特，依語言及地區自動選擇，也可手動切換。加入可選的正面、左側、右側及背面照片後，可使用自己的形象。\n\n開始使用\n1. 在「衣櫥」瀏覽示範服飾或加入衣物。\n2. 在「今天」選擇場合，刷新並收藏搭配。\n3. 如需線上AI，在「我的→AI設定」填寫自己的Key和模型，閱讀資料傳送說明，明確授權並儲存。\n4. 在「試穿」選擇或拍攝衣物，點擊AI效果圖，再按需加入衣櫥。\n\n注意事項\n應用免費。線上AI為可選功能，需要自己的API Key、網路與相容帳號，服務商可能收費，連線測試也可能產生少量費用。本應用不銷售API存取權限。效果圖僅供參考，不保證實際尺寸或合身程度。相機和位置權限均可拒絕。明確授權後才向所選AI服務商傳送照片及對話，可隨時撤銷後續授權。本版資料保存在此iPhone，沒有雲端同步或應用資料備份，可在「我的」刪除資料及Key。\n\n支援英語、簡繁中文、日語、法語、德語、西班牙語，適配不同尺寸iPhone直向使用。",
+  "keywords": "衣櫥,穿搭,搭配,試穿,服裝,時尚,衣物整理,AI,造型",
+  "supportURL": "https://wliao78.github.io/AI-Wardrobe-Support/zh-Hant.html#support",
+  "privacyURL": "https://wliao78.github.io/AI-Wardrobe-Support/zh-Hant.html#privacy",
+  "marketingURL": "https://wliao78.github.io/AI-Wardrobe-Support/"
+}

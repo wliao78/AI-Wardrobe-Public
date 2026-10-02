@@ -51,7 +51,7 @@ struct ProfileView: View {
             Section(L("privacy")) {
                 NavigationLink(L("privacyPolicy")) { LegalView(terms: false) }
                 NavigationLink(L("terms")) { LegalView(terms: true) }
-                Link(L("support"), destination: URL(string: "https://github.com/wliao78/AI-Wardrobe-Public/issues")!)
+                Link(L("support"), destination: URL(string: "https://github.com/wliao78/AI-Wardrobe-Support/issues")!)
                 Button(L("deleteAll"), role: .destructive) { erase = true }
                 Text(L("localStorageNote")).font(.caption).foregroundStyle(.secondary)
             }
@@ -175,7 +175,7 @@ struct LegalView: View {
                 Text(L("appName")).font(.title2.bold())
                 Text("2026-10-02").font(.caption).foregroundStyle(.secondary)
                 Text(NSLocalizedString(terms ? "termsBody" : "privacyBody", tableName: "Legal", comment: "")).textSelection(.enabled)
-                Link(L("support"), destination: URL(string: "https://github.com/wliao78/AI-Wardrobe-Public/issues")!)
+                Link(L("support"), destination: URL(string: "https://github.com/wliao78/AI-Wardrobe-Support/issues")!)
                 if !terms {
                     ForEach(AIProvider.allCases.filter { $0 != .custom }) { provider in
                         Link(provider.title, destination: provider.privacyURL)

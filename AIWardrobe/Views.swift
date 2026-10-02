@@ -85,7 +85,7 @@ struct TodayView: View {
                                         }.padding(20)
                                     }
                                 }.frame(height: max(280, min(geometry.size.height * 0.62, 620)))
-                            }.buttonStyle(.plain).accessibilityLabel(L("enlarge"))
+                            }.buttonStyle(.plain).allowsHitTesting(displayImage != nil).accessibilityLabel(L("enlarge"))
                             VStack(spacing: 12) {
                                 action(look?.saved == true ? "heart.fill" : "heart", "saveLook") { saveLook() }
                                 action("arrow.clockwise", "newLook") { recommend() }
@@ -261,7 +261,8 @@ struct ClosetView: View {
             if store.data.garments.isEmpty { ContentUnavailableView(L("closet"), systemImage: "tshirt", description: Text(L("emptyCloset"))) }
         }
         .searchable(text: $search, prompt: L("search"))
-        .toolbar { ToolbarItem(placement: .topBarLeading) { Text(L("closet")).font(.subheadline) }
+        .navigationTitle(L("closet")).navigationBarTitleDisplayMode(.inline)
+        .toolbar {
             ToolbarItem(placement: .topBarTrailing) { Button { add = true } label: { Image(systemName: "plus") }.accessibilityLabel(L("addGarment")) }
         }
         .sheet(isPresented: $add) { GarmentEditor() }
