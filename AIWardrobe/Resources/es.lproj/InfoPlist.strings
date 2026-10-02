@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "Armario IA";
+"CFBundleName" = "Armario IA";
+"NSCameraUsageDescription" = "Fotografía prendas o referencias corporales opcionales para la prueba virtual.";
+"NSLocationWhenInUseUsageDescription" = "Usa la ubicación aproximada para sugerir conjuntos según el tiempo.";

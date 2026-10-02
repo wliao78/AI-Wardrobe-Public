@@ -1,0 +1,100 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "privacyBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI Wardrobe stores clothing photos, optional body photos, saved looks and conversations on your iPhone. No account, advertising, analytics or tracking SDK is used. The developer operates no content server. App data is excluded from cloud backup; deleting the app may permanently remove it. API keys are stored in the device Keychain and may survive app removal, so delete keys in Settings before uninstalling.\n\nAI features are optional. After your explicit permission, outfit requests send garment names, categories, colors, recent messages, language and temperature to your selected provider: OpenAI, Google Gemini, Anthropic, DeepSeek, Alibaba Qwen or your custom HTTPS endpoint. Image generation additionally sends your chosen model or front body photo and clothing photos to OpenAI or Google Gemini. Your face and body may be visible. Keys authenticate directly with that provider. No body measurements, nationality or health traits are inferred.\n\nProviders process requests under their own terms, security practices and retention policies, potentially outside your country. Review the links below before enabling sharing. For a custom endpoint, verify its operator and privacy policy yourself. Permissions are off by default and can be revoked in AI settings; revocation stops future requests but cannot retract data already transmitted.\n\nCamera access is requested only when taking photos. The system photo picker provides only photos you select. Optional approximate location goes to Apple Weather for local weather; coordinates are not sent to AI providers. You can decline these permissions and keep using the wardrobe.\n\nDelete individual garments or body photos, or use “Delete all local data” to remove clothing, photos, looks, conversations, settings and saved API keys. To delete provider-held data, contact that provider. No app account exists to delete.\n\nFor privacy requests, use the support page below. Do not post photos, keys or sensitive information in public issues. This policy may be updated with releases; review it before consenting to new processing."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI衣橱将衣物照片、可选个人照片、收藏搭配和对话保存在你的iPhone。无需账号，不含广告、分析或跟踪SDK，开发者不运行内容服务器。应用数据不参与云备份，卸载可能永久丢失。API Key保存在系统钥匙串，可能在卸载后保留，请先在设置中删除。\n\nAI功能为可选。明确同意后，搭配请求将衣物名称、类别、颜色、近期对话、语言和温度发送至你选择的OpenAI、Google Gemini、Anthropic、DeepSeek、阿里云Qwen或自定义HTTPS服务。生成图片还会将所选模特图或个人正面照及衣物照片发送至OpenAI或Google Gemini，图片可能包含面部和身体。Key直接用于对应服务商认证。本应用不推断身体尺寸、国籍或健康特征。\n\n服务商按其条款、安全措施和保留政策处理数据，处理地点可能在境外。授权前请阅读下方政策。自定义服务需自行核实运营方及隐私政策。授权默认关闭，可在AI设置随时撤销；撤销阻止后续请求，但不能收回已发送的数据。\n\n仅在拍照时申请相机权限。系统照片选择器仅提供你选中的照片。可选的粗略位置发送至Apple天气获取天气，坐标不会发送给AI服务商。拒绝权限仍可使用衣橱。\n\n可删除单件衣物或个人照片，也可通过“删除所有本机数据”清除衣物、照片、搭配、对话、设置和已保存Key。服务商已接收的数据需向其申请删除。本应用没有需要注销的账号。\n\n隐私问题请通过下方支持页面联系。请勿在公开问题中发布照片、Key或敏感信息。政策可能随版本更新，请在同意新增处理前查看。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI衣櫥將衣物照片、可選個人照片、收藏搭配和對話保存在你的iPhone。無需帳號，不含廣告、分析或追蹤SDK，開發者不運行內容伺服器。應用資料不參與雲端備份，移除可能永久遺失。API Key保存在系統鑰匙圈，可能在移除後保留，請先在設定中刪除。\n\nAI功能為可選。明確同意後，搭配請求將衣物名稱、類別、顏色、近期對話、語言和溫度傳送至你選擇的OpenAI、Google Gemini、Anthropic、DeepSeek、阿里雲Qwen或自訂HTTPS服務。產生圖片還會將模特圖或個人正面照及衣物照片傳送至OpenAI或Google Gemini，可能包含臉部與身體。Key直接用於對應服務商驗證。本應用不推斷身體尺寸、國籍或健康特徵。\n\n服務商按其條款、安全措施和保留政策處理資料，地點可能在境外。授權前請閱讀下方政策。自訂服務需自行核實營運方及隱私政策。授權預設關閉，可隨時撤銷；撤銷阻止後續請求，但不能收回已傳送資料。\n\n僅在拍照時申請相機權限。系統照片選擇器僅提供你選中的照片。可選的粗略位置傳送至Apple天氣，座標不會傳送給AI服務商。拒絕權限仍可使用衣櫥。\n\n可刪除單件衣物或個人照片，也可透過「刪除所有本機資料」清除衣物、照片、搭配、對話、設定和Key。服務商已接收的資料需向其申請刪除。本應用沒有需要註銷的帳號。\n\n隱私問題請透過下方支援頁面聯絡。請勿在公開問題中發布照片、Key或敏感資訊。政策可能隨版本更新，請在同意新增處理前查看。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AIクローゼットは衣服写真、任意の全身写真、コーデと会話をiPhone内に保存します。アカウント、広告、解析・追跡SDKはありません。開発者はコンテンツサーバーを運営しません。データはクラウドバックアップ対象外で、アプリ削除により失われます。APIキーは端末のキーチェーンに保存され、アプリ削除後も残る場合があります。削除前に設定でキーを消してください。\n\nAIは任意です。明示的な同意後、衣服名・種類・色・最近の会話・言語・気温を選択したOpenAI、Google Gemini、Anthropic、DeepSeek、Alibaba QwenまたはカスタムHTTPS提供者に送信します。画像生成ではモデルまたは本人の正面写真と衣服写真をOpenAIかGoogle Geminiに送ります。顔や身体が含まれる場合があります。キーは提供者への認証に使います。寸法、国籍、健康状態は推定しません。\n\n提供者は各自の規約、安全対策、保存方針に従って処理し、国外で処理する場合があります。許可前に下の方針を確認してください。カスタム提供者は運営者と方針をご自身で確認してください。許可は初期状態でオフ、いつでも撤回できます。撤回は今後の送信を止めますが送信済みデータは回収できません。\n\n撮影時のみカメラ許可を求めます。写真選択機能は選択された写真だけを読み込みます。任意の概算位置情報はApple Weatherに送られます。座標はAIに送信しません。許可を拒否してもクローゼットを使えます。\n\n個別削除や「端末の全データを削除」で衣服、写真、会話、設定、キーを削除できます。提供者が保持するデータの削除は提供者に依頼してください。削除するアカウントはありません。\n\nお問い合わせは下のサポートへ。公開の問い合わせに写真・キー・機密情報を投稿しないでください。方針は更新される場合があります。新しい処理の同意前に確認してください。"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI Wardrobe conserve vêtements, photos personnelles facultatives, tenues et discussions sur votre iPhone. Aucun compte, publicité, analyse ni suivi. Le développeur n’héberge aucun contenu. Les données sont exclues des sauvegardes cloud et peuvent être perdues à la désinstallation. Les clés API sont dans le Trousseau et peuvent subsister après désinstallation : supprimez-les d’abord dans les réglages.\n\nL’IA est facultative. Avec votre accord explicite, noms, catégories, couleurs, messages récents, langue et température sont transmis au prestataire choisi : OpenAI, Google Gemini, Anthropic, DeepSeek, Alibaba Qwen ou votre adresse HTTPS personnalisée. Pour les images, le mannequin ou votre photo de face et les vêtements sont envoyés à OpenAI ou Google Gemini. Votre visage et votre corps peuvent être visibles. La clé authentifie directement les requêtes. Aucune mensuration, nationalité ou donnée de santé n’est déduite.\n\nLes prestataires appliquent leurs propres conditions et durées de conservation, éventuellement à l’étranger. Consultez leurs politiques ci-dessous. Pour une adresse personnalisée, vérifiez l’opérateur et sa politique. Le partage est désactivé par défaut et révocable à tout moment. La révocation n’efface pas les données déjà transmises.\n\nLa caméra est demandée uniquement pour prendre une photo. Le sélecteur donne accès aux seules photos choisies. La position approximative facultative va à Apple Weather, jamais aux prestataires IA. Refuser ces autorisations n’empêche pas l’usage de la garde-robe.\n\nSupprimez des éléments ou toutes les données locales, y compris photos, tenues, discussions, réglages et clés. Contactez le prestataire pour ses copies. Aucun compte n’est à supprimer.\n\nContactez l’assistance ci-dessous sans publier de photos, clés ou informations sensibles dans les discussions publiques. Cette politique peut évoluer ; consultez-la avant tout nouveau consentement."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI Wardrobe speichert Kleidung, optionale Körperfotos, Outfits und Chats auf deinem iPhone. Ohne Konto, Werbung, Analyse- oder Tracking-SDKs. Der Entwickler betreibt keinen Inhaltsserver. App-Daten sind von Cloud-Backups ausgeschlossen und können bei Deinstallation verloren gehen. API-Schlüssel liegen im Schlüsselbund und können danach erhalten bleiben. Lösche sie vorher in den Einstellungen.\n\nKI ist optional. Nach ausdrücklicher Zustimmung gehen Kleidungsnamen, Kategorien, Farben, letzte Nachrichten, Sprache und Temperatur an OpenAI, Google Gemini, Anthropic, DeepSeek, Alibaba Qwen oder deine eigene HTTPS-Adresse. Für Bilder werden Modell- oder eigenes Vorderfoto und Kleidungsfotos an OpenAI oder Google Gemini gesendet. Gesicht und Körper können sichtbar sein. Der Schlüssel dient der direkten Authentifizierung. Körpermaße, Nationalität oder Gesundheitsmerkmale werden nicht abgeleitet.\n\nAnbieter verarbeiten Daten nach eigenen Bedingungen, Schutzmaßnahmen und Speicherfristen, möglicherweise im Ausland. Lies vor der Freigabe ihre verlinkten Richtlinien. Bei eigenen Adressen musst du Betreiber und Datenschutz prüfen. Freigaben sind standardmäßig aus und jederzeit widerrufbar. Widerruf verhindert neue Anfragen, holt aber gesendete Daten nicht zurück.\n\nKamerazugriff wird nur beim Fotografieren angefragt. Die Fotoauswahl gibt nur gewählte Bilder frei. Der optionale ungefähre Standort geht an Apple Weather, nicht an KI-Anbieter. Der Kleiderschrank bleibt ohne diese Freigaben nutzbar.\n\nEinzelne Inhalte oder alle lokalen Daten einschließlich Fotos, Outfits, Chats, Einstellungen und Schlüssel lassen sich löschen. Anbieter-Kopien sind beim Anbieter zu löschen. Es gibt kein App-Konto.\n\nDatenschutzfragen über den Support unten. Keine Fotos, Schlüssel oder sensiblen Angaben in öffentlichen Tickets posten. Die Richtlinie kann sich ändern; prüfe sie vor neuen Freigaben."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI Wardrobe guarda prendas, fotos personales opcionales, conjuntos y conversaciones en tu iPhone. No hay cuenta, anuncios, análisis ni rastreo. El desarrollador no aloja contenido. Los datos no se incluyen en copias en la nube y pueden perderse al desinstalar. Las claves API se guardan en el Llavero y pueden permanecer tras desinstalar; elimínalas primero en Ajustes.\n\nLa IA es opcional. Tras tu consentimiento explícito, se envían nombres, categorías, colores, mensajes recientes, idioma y temperatura a OpenAI, Google Gemini, Anthropic, DeepSeek, Alibaba Qwen o tu dirección HTTPS personalizada. Para imágenes se envían el modelo o tu foto frontal y las prendas a OpenAI o Google Gemini. Rostro y cuerpo pueden ser visibles. La clave autentica directamente. No se deducen medidas corporales, nacionalidad ni salud.\n\nLos proveedores aplican sus condiciones, seguridad y conservación, posiblemente fuera de tu país. Lee sus políticas enlazadas antes de permitirlo. Comprueba el operador y la privacidad de direcciones personalizadas. Los permisos están desactivados por defecto y son revocables. Revocarlos detiene futuros envíos, pero no retira datos enviados.\n\nLa cámara se solicita solo al fotografiar. El selector accede solo a fotos elegidas. La ubicación aproximada opcional se envía a Apple Weather, nunca a la IA. Puedes rechazar estos permisos y usar el armario.\n\nElimina elementos individuales o todos los datos locales, incluidas fotos, conjuntos, chats, ajustes y claves. Solicita al proveedor borrar sus copias. No existe cuenta de la app que eliminar.\n\nConsulta al soporte sin publicar fotos, claves ni información sensible en incidencias públicas. Esta política puede actualizarse; revísala antes de nuevos permisos."
+          }
+        }
+      }
+    },
+    "termsBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use AI Wardrobe only with photos and API accounts you are authorized to use. Do not upload unlawful, abusive or nonconsensual content. The app is a personal styling tool; AI results can be inaccurate and do not guarantee garment fit, measurements, safety or availability. Default models and demo outfits are fictional AI examples. Your own data stays yours. Keep a separate copy of important photos; this edition has no cloud sync. Optional AI service use is governed and billed by your selected provider. Availability, models and rates can change. Do not use another person’s API key without permission. No app account or paid subscription is required for local features. These terms do not limit mandatory consumer rights. Contact Support for questions."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅使用你有权使用的照片及API账号。不得上传违法、侵害他人或未经同意的内容。本应用用于穿搭参考，AI结果可能不准确，不保证合身、尺寸、安全性或商品可用性。默认模特和演示服饰为虚构AI示例。你的数据仍归你所有。请另行保存重要照片，本版没有云同步。可选AI服务遵循所选服务商条款并由其计费，服务、模型及费率可能变化。未经许可不得使用他人Key。离线功能无需应用账号或付费订阅。本条款不限制法定消费者权利。有问题请联系支持。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅使用你有權使用的照片及API帳號。不得上傳違法、侵害他人或未經同意的內容。本應用用於穿搭參考，AI結果可能不準確，不保證合身、尺寸、安全性或商品可用性。預設模特和示範服飾為虛構AI示例。你的資料仍歸你所有。請另行保存重要照片，本版沒有雲端同步。可選AI服務遵循所選服務商條款並由其計費，服务、模型及費率可能變化。未經許可不得使用他人Key。離線功能無需應用帳號或付費訂閱。本條款不限制法定消費者權利。有問題請聯絡支援。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用権のある写真とAPIアカウントだけを使ってください。違法、他人を害する、同意のない内容は送信しないでください。本アプリは服装の参考用で、AIは不正確な場合があり、寸法・フィット感・安全性・入手可能性を保証しません。既定モデルとデモ服は架空のAI例です。データの権利はあなたにあります。重要な写真は別途保存してください。クラウド同期はありません。任意のAIサービスは提供者の規約と料金に従い、変更される場合があります。他人のキーを無断で使用しないでください。ローカル機能にアカウントや有料契約は不要です。法定の消費者権利を制限しません。お問い合わせはサポートへ。"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisez uniquement des photos et comptes API autorisés. Aucun contenu illégal, abusif ou non consenti. L’app propose des idées de style ; l’IA peut se tromper et ne garantit ni taille, ajustement, sécurité ni disponibilité. Mannequins et tenues de démo sont fictifs. Vos données vous appartiennent. Conservez vos photos importantes ailleurs : pas de synchronisation cloud. Les services IA facultatifs suivent les conditions et tarifs du prestataire, susceptibles de changer. N’utilisez pas la clé d’autrui sans accord. Les fonctions locales ne nécessitent ni compte ni abonnement payant. Vos droits légaux restent applicables. Contactez l’assistance pour toute question."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutze nur Fotos und API-Konten, für die du berechtigt bist. Keine rechtswidrigen, missbräuchlichen oder nicht einvernehmlichen Inhalte. Die App gibt Styling-Ideen; KI kann fehlerhaft sein und garantiert keine Passform, Maße, Sicherheit oder Verfügbarkeit. Demo-Outfits und Modelle sind fiktiv. Deine Daten gehören dir. Wichtige Fotos separat sichern; kein Cloud-Sync. Optionale KI-Dienste unterliegen Bedingungen und Gebühren des Anbieters, die sich ändern können. Fremde Schlüssel nicht ohne Erlaubnis verwenden. Lokale Funktionen benötigen kein Konto oder kostenpflichtiges Abo. Gesetzliche Verbraucherrechte bleiben unberührt. Fragen an den Support."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa solo fotos y cuentas API autorizadas. No envíes contenido ilegal, abusivo o sin consentimiento. La app ofrece ideas de estilo; la IA puede equivocarse y no garantiza talla, ajuste, seguridad ni disponibilidad. Los modelos y conjuntos de ejemplo son ficticios. Tus datos siguen siendo tuyos. Conserva aparte fotos importantes; no hay sincronización en la nube. Los servicios IA opcionales siguen las condiciones y tarifas del proveedor, que pueden cambiar. No uses claves ajenas sin permiso. Las funciones locales no requieren cuenta ni suscripción de pago. Se mantienen tus derechos legales. Contacta con soporte para dudas."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

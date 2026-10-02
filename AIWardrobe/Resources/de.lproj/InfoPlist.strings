@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "KI-Kleiderschrank";
+"CFBundleName" = "KI-Kleiderschrank";
+"NSCameraUsageDescription" = "Kleidung oder optionale Referenzfotos für die virtuelle Anprobe aufnehmen.";
+"NSLocationWhenInUseUsageDescription" = "Ungefährer Standort für wettergerechte Outfit-Vorschläge.";

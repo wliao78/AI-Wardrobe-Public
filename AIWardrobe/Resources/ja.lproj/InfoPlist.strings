@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "AIクローゼット";
+"CFBundleName" = "AIクローゼット";
+"NSCameraUsageDescription" = "衣服や任意の全身参考写真を撮影し、試着に使います。";
+"NSLocationWhenInUseUsageDescription" = "おおよその位置から天気に合うコーデを提案します。";

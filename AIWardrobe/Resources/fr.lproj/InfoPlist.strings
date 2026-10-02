@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "Garde-robe IA";
+"CFBundleName" = "Garde-robe IA";
+"NSCameraUsageDescription" = "Photographiez des vêtements ou des références corporelles pour l’essayage.";
+"NSLocationWhenInUseUsageDescription" = "Utilisez la position approximative pour adapter les tenues à la météo.";

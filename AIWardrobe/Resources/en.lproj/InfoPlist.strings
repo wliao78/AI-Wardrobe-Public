@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "AI Wardrobe";
+"CFBundleName" = "AI Wardrobe";
+"NSCameraUsageDescription" = "Photograph clothing or take optional body reference photos for virtual try-on.";
+"NSLocationWhenInUseUsageDescription" = "Use your approximate location to suggest outfits for the local weather.";

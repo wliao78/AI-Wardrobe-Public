@@ -1,0 +1,4 @@
+"CFBundleDisplayName" = "AI衣橱";
+"CFBundleName" = "AI衣橱";
+"NSCameraUsageDescription" = "拍摄衣物或可选个人参考照片，用于虚拟试穿。";
+"NSLocationWhenInUseUsageDescription" = "使用粗略位置获取当地天气，推荐适合的穿搭。";
