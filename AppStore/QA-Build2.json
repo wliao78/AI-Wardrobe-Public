@@ -1,7 +1,8 @@
 {
   "version": "1.0",
   "build": 2,
-  "status": "User conditionally authorized formal release after problems are resolved. Candidate 75 local distribution export succeeded, installed on public-bundle iPhone, and four-region measurement regression passed. Candidate 74 hosted, UI and small-screen regressions passed; only numeric placeholders changed afterward. Renewed store login, Chinese name choice and physical acceptance remain pending; no final upload.",
+  "status": "User issued final 上架 authorization. Candidate 75 successfully uploaded via Xcode as version 1.0 build 2; upload-complete UI verified. Not submitted for review or released yet. Store web login and Chinese name choice remain pending. Renewed physical acceptance and paid live AI calls remain unverified, not counted as passed.",
+  "finalUpload": { "version": "1.0", "build": 2, "candidate": 75, "bundle": "com.tinyworm.AIWardrobe.Public", "result": "Xcode displayed AIWardrobe 1.0 (2) uploaded", "reviewSubmission": "Not yet submitted", "release": "Not yet released", "sourceCommit": "abf446d", "sourceBranch": "codex/private-baseline-alignment", "sourcePushed": true },
   "tests": [
     {
       "label": "compact",
@@ -112,7 +113,7 @@
     "regionalMeasurementRegression": { "resultBundle": "AIWardrobe-Public-Small-75.xcresult", "passed": 1, "failed": 0, "coverage": "Four locale/unit combinations and persistence after final input-hint correction" },
     "providerMockRegression": "Six text adapters, two image adapters, consent gates, endpoint validation, synthetic privacy and HTTP errors passed. No live paid requests.",
     "archive": "ReleaseCandidates/candidate-75/AIWardrobe-Build2.xcarchive",
-    "archiveResult": "Release archive, strict app signature verification and local GUI distribution export succeeded. Installed on public-bundle iPhone. No upload or renewed physical acceptance.",
+    "archiveResult": "Release archive, strict app signature verification and local GUI distribution export succeeded. Installed on public-bundle iPhone; then uploaded successfully as 1.0 build 2 after final 上架 authorization. Renewed physical acceptance remains unverified.",
     "screenshots": "All 28 recaptured from candidate 74; seven profile screenshots refreshed from candidate 75. Release verifier passed. First capture attempt rejected a blank Japanese launch frame, app-only relaunch recovered. Other three tabs have unchanged code between 74/75."
   },
   "layoutCorrection": {
@@ -148,7 +149,7 @@
     "physicalDevice": "Candidate 70 installed successfully on user's iPhone 16 Pro Max. Candidate 67 launch attempt was denied because the phone was locked. User acceptance remains pending; install/launch is not physical functional validation."
   },
   "archive": "ReleaseCandidates/candidate-75/AIWardrobe-Build2.xcarchive",
-  "archiveVerification": "Archive succeeded; deep/strict signature validation passed; verified public bundle com.tinyworm.AIWardrobe.Public, build 2 and portrait-only orientation. Not uploaded.",
+  "archiveVerification": "Archive succeeded; deep/strict signature validation passed; verified public bundle com.tinyworm.AIWardrobe.Public, build 2 and portrait-only orientation. Xcode candidate-75 upload completed; review submission remains pending.",
   "localDistributionExport": "ReleaseCandidates/candidate-75/AppStoreExport/AIWardrobe.ipa",
   "localDistributionSHA256": "8e929619f0d5b18cb73d60f5e55bc6d473ae4c22995a2798ecce17e272fa941f",
   "localDistributionStatus": "App Store Connect distribution export succeeded with destination=export and automatic signing, preserving build 2. Local export is not Apple server-side upload/validation or App Review approval.",
