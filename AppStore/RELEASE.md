@@ -1,6 +1,15 @@
-# Release record — 1.0, uploaded and selected build 2
+# Release record — 1.0 build 2, formally submitted
 
-This is preparation material, not a statement that the app is submitted or approved.
+The current submission below is verified. Earlier dated preparation records are historical; submission is not approval or public release.
+
+## Formal App Review submission — 2026-10-03 PDT
+
+- After the user completed Chrome login, saved and read back the Simplified Chinese privacy URL. Rechecked all five Chinese version metadata fields against local JSON and all four screenshots in order 0/1/2/3.
+- Version page confirmed final build 2 and **Automatically release this version** selected. The complete seven-localization version passed Add for Review validation.
+- Pressed **Submit for Review** in the draft listing **1.0 (2)**. Apple displayed **1 Item Submitted** and **1.0 Waiting for Review**. No new legal agreement or attestation appeared during this step.
+- Review record: https://appstoreconnect.apple.com/apps/6818665093/distribution/reviewsubmissions/details/da72f602-0a0b-436d-ae33-18e284c2cd2b . Submission proof screenshot: `/tmp/ai-my-wardrobe-submitted-for-review.jpg`. Observed on 2026-10-03 around 08:28 PDT; subsequent record update 08:33 PDT.
+- Not approved or publicly released yet. Automatic release is configured after approval. A same-chat two-hour heartbeat (`ai-my-wardrobe`) was created to check this app only, stay quiet on unchanged status, notify on meaningful changes or required user action, and stop after verified public availability. Local follow-up requires the computer and desktop app to remain running.
+- Live paid AI requests and renewed physical candidate-75 acceptance remain unverified. They were disclosed rather than represented as successful tests. App Review notes retain that limitation.
 
 ## Simplified Chinese name resolved — 2026-10-03
 
