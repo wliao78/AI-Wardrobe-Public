@@ -73,6 +73,45 @@ final class WardrobeUITests: XCTestCase {
         checkRealMicrophone(language: "en", region: "en_US")
     }
 
+    @MainActor func testIsolatedDataDeletionAndEmptyCloset() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        app.tabBars.buttons.element(boundBy: 1).tap()
+        XCTAssertTrue(app.buttons["closet.item.white-oxford"].waitForExistence(timeout: 5))
+        app.tabBars.buttons.element(boundBy: 3).tap()
+        let erase = app.buttons["profile.erase"]
+        for _ in 0..<6 where !erase.isHittable { app.swipeUp() }
+        XCTAssertTrue(erase.isHittable)
+        erase.tap()
+        let confirm = app.buttons["profile.confirmErase"].firstMatch
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        app.tabBars.buttons.element(boundBy: 1).tap()
+        XCTAssertFalse(app.buttons["closet.item.white-oxford"].exists)
+        app.tabBars.buttons.element(boundBy: 0).tap()
+        app.tabBars.buttons.element(boundBy: 1).tap()
+        XCTAssertFalse(app.buttons["closet.item.white-oxford"].exists, "Deleted demo must not automatically reappear")
+        app.terminate()
+    }
+
+    @MainActor func testDeniedMicrophoneStillAllowsTyping() {
+        // The runner revokes microphone permission for this test app before execution.
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        XCTAssertTrue(app.buttons["chat.microphone"].waitForExistence(timeout: 10))
+        app.buttons["chat.microphone"].tap()
+        XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 10))
+        XCTAssertNotEqual(app.buttons["chat.microphone"].value as? String, "listening")
+        app.alerts.firstMatch.buttons.firstMatch.tap()
+        let input = app.textFields["chat.input"].exists ? app.textFields["chat.input"] : app.textViews["chat.input"]
+        input.tap(); input.typeText("A casual outfit without microphone")
+        app.buttons["chat.send"].tap()
+        XCTAssertTrue(app.staticTexts["A casual outfit without microphone"].waitForExistence(timeout: 5))
+        app.terminate()
+    }
+
     @MainActor func testSevenLanguagesRealMicrophoneLifecycle() {
         for (language, region) in [("en","en_US"),("zh-Hans","zh_CN"),("zh-Hant","zh_TW"),("ja","ja_JP"),("fr","fr_FR"),("de","de_DE"),("es","es_ES")] {
             checkRealMicrophone(language: language, region: region)

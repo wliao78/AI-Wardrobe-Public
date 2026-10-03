@@ -3,6 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 device="${1:-05935F76-8E02-4879-9251-9F3784FDAE80}"
 app="${2:-/tmp/AIWardrobe-Public-Voice/Build/Products/Debug-iphonesimulator/AIWardrobe.app}"
+tabs="${3:-0 1 2 3}"
 xcrun simctl install "$device" "$app"
 xcrun simctl ui "$device" appearance light
 xcrun simctl ui "$device" content_size large
@@ -13,7 +14,7 @@ for language in en zh-Hans zh-Hant ja fr de es; do
     ja) region=ja_JP;; fr) region=fr_FR;; de) region=de_DE;; es) region=es_ES;;
   esac
   mkdir -p "AppStore/Screenshots/$language"
-  for tab in 0 1 2 3; do
+  for tab in $tabs; do
     xcrun simctl terminate "$device" com.tinyworm.AIWardrobe.Public 2>/dev/null || true
     xcrun simctl launch "$device" com.tinyworm.AIWardrobe.Public -ui-testing -AppleLanguages "($language)" -AppleLocale "$region" -ui-tab "$tab"
     sleep 4

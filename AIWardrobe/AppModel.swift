@@ -125,7 +125,7 @@ struct AIWardrobeApp: App {
     @State private var store: WardrobeStore = {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-ui-testing") {
-            return WardrobeStore(folder: URL.temporaryDirectory.appending(path: "WardrobeUITests-" + UUID().uuidString))
+            return WardrobeStore(folder: URL.temporaryDirectory.appending(path: "WardrobeUITests-" + UUID().uuidString), resetAI: {})
         }
         #endif
         return WardrobeStore()

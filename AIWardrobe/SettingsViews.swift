@@ -11,7 +11,6 @@ struct ProfileView: View {
                 HStack {
                     PhotoView(image: store.avatar).frame(width: 90, height: 130)
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(L("appName")).font(.title2.weight(.semibold))
                         Text(L(store.usesDefaultAvatar ? "defaultModel" : "personalModel")).font(.caption).foregroundStyle(.secondary)
                         Text(L("publicEdition")).font(.caption2).foregroundStyle(.secondary)
                     }
@@ -52,13 +51,13 @@ struct ProfileView: View {
                 NavigationLink(L("privacyPolicy")) { LegalView(terms: false) }
                 NavigationLink(L("terms")) { LegalView(terms: true) }
                 Link(L("support"), destination: URL(string: "https://github.com/wliao78/AI-Wardrobe-Support/issues")!)
-                Button(L("deleteAll"), role: .destructive) { erase = true }
+                Button(L("deleteAll"), role: .destructive) { erase = true }.accessibilityIdentifier("profile.erase")
                 Text(L("localStorageNote")).font(.caption).foregroundStyle(.secondary)
             }
         }
-        .navigationTitle(L("profile")).navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("").navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(L("deleteAll"), isPresented: $erase, titleVisibility: .visible) {
-            Button(L("deleteAll"), role: .destructive) { store.erase() }
+            Button(L("deleteAll"), role: .destructive) { store.erase() }.accessibilityIdentifier("profile.confirmErase")
         } message: { Text(L("deleteAllWarning")) }
         .confirmationDialog(L("removeBodyPhotos"), isPresented: $removePhotos) {
             Button(L("delete"), role: .destructive) { store.data.bodyPhotos = [:]; store.save() }
