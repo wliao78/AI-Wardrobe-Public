@@ -1,6 +1,14 @@
-# Release record — 1.0, uploaded build 1 / local review build 2
+# Release record — 1.0, uploaded and selected build 2
 
 This is preparation material, not a statement that the app is submitted or approved.
+
+## App Store Connect follow-up — 2026-10-03
+
+- The existing Chrome session recovered. Final version 1.0 build 2 (`86e7bbbe-755b-445c-b9c8-66394dba56bb`) replaced the old build 1 association and was saved on the version page.
+- Updated the English, Traditional Chinese, French, German, Japanese and Spanish descriptions with the localized offline-model sketch explanation. Updated review notes to disclose local-only regional height/weight, tap-only paid image generation and unverified live paid AI calls.
+- Replaced/uploaded four current screenshots for each of these six locales. Media Manager displays four screenshots per locale; the checked order is Today, Closet, Try on, Me. Upload completion can reorder files, so keyboard ordering was checked after upload.
+- Automatic release after App Review approval remains selected. No review submission or public release has occurred. Simplified Chinese store-name selection remains outstanding; the user has been asked whether to retain AI My Wardrobe or try AI My Wardrobe·穿搭日记. Do not treat a pending name choice as approved.
+- Historical login, archive and upload statements below are dated records, superseded by this latest state where applicable. Renewed physical build-2 acceptance and live paid AI testing are still not counted as passed.
 
 ## Conditional release authorization — 2026-10-03
 

@@ -1,7 +1,8 @@
 {
   "version": "1.0",
   "build": 2,
-  "status": "User issued final 上架 authorization. Candidate 75 successfully uploaded via Xcode as version 1.0 build 2; upload-complete UI verified. Not submitted for review or released yet. Store web login and Chinese name choice remain pending. Renewed physical acceptance and paid live AI calls remain unverified, not counted as passed.",
+  "status": "User issued final 上架 authorization. Candidate 75 successfully uploaded and selected as version 1.0 build 2 in App Store Connect. Six existing storefront localizations have updated offline sketch descriptions and four current screenshots each. Not submitted for review or released yet. Simplified Chinese name choice remains pending. Renewed physical acceptance and paid live AI calls remain unverified, not counted as passed.",
+  "storePreparation": { "selectedBuildId": "86e7bbbe-755b-445c-b9c8-66394dba56bb", "selectedBuild": 2, "automaticReleaseAfterApproval": true, "updatedLocales": ["en-US", "zh-Hant", "fr-FR", "de-DE", "ja", "es-ES"], "screenshotsPerUpdatedLocale": 4, "simplifiedChineseName": "Pending human choice", "reviewNotesUpdated": true },
   "finalUpload": { "version": "1.0", "build": 2, "candidate": 75, "bundle": "com.tinyworm.AIWardrobe.Public", "result": "Xcode displayed AIWardrobe 1.0 (2) uploaded", "reviewSubmission": "Not yet submitted", "release": "Not yet released", "sourceCommit": "abf446d", "sourceBranch": "codex/private-baseline-alignment", "sourcePushed": true },
   "tests": [
     {
