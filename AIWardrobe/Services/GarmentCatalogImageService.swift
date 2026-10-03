@@ -14,7 +14,10 @@ enum GarmentCatalogImageService {
             candidate = original
         }
         let side: CGFloat = 768
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side), format: format)
         let image = renderer.image { context in
             UIColor(red: 0.965, green: 0.958, blue: 0.945, alpha: 1).setFill()
             context.fill(CGRect(x: 0, y: 0, width: side, height: side))

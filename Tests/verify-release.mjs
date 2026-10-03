@@ -17,6 +17,8 @@ for (const lang of languages) {
   assert(info.includes('CFBundleDisplayName'));
   assert(info.includes('NSCameraUsageDescription'));
   assert(info.includes('NSLocationWhenInUseUsageDescription'));
+  assert(info.includes('NSMicrophoneUsageDescription'));
+  assert(info.includes('NSSpeechRecognitionUsageDescription'));
 }
 const files = fs.readdirSync(`${root}/AIWardrobe`, {recursive:true}).filter(f=>fs.statSync(`${root}/AIWardrobe/${f}`).isFile());
 assert(!files.some(f=>/PersonalCatalog|WornCatalog|default-front|real-|\.heic$/i.test(f)), 'Private assets present');

@@ -37,7 +37,7 @@ struct FullPhoto: View {
     var body: some View {
         NavigationStack {
             PhotoView(image: image).frame(maxHeight: .infinity).background(Color(.systemBackground))
-                .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L("done")) { dismiss() } } }
+                .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L("done")) { dismiss() }.accessibilityIdentifier("photo.close") } }
         }
     }
 }
@@ -54,6 +54,9 @@ struct TodayView: View {
     @State private var weather = PublicWeather()
     @State private var showPhoto = false
     @State private var detail: Garment?
+    @State private var speech = SpeechInputService()
+    @State private var voicePrefix = ""
+    @Environment(\.scenePhase) private var scenePhase
     @FocusState private var focused: Bool
 
     var look: Look? { current ?? store.data.looks.first }
@@ -135,19 +138,42 @@ struct TodayView: View {
                 .onChange(of: store.data.messages.count) { _, _ in withAnimation { proxy.scrollTo("latest", anchor: .bottom) } }
                 .onChange(of: focused) { _, value in if value { withAnimation { proxy.scrollTo("latest", anchor: .bottom) } } }
                 .safeAreaInset(edge: .bottom) {
+                    VStack(spacing: 3) {
+                    if speech.isListening { Text(L("voiceListening")).font(.caption).foregroundStyle(.secondary) }
                     HStack {
                         TextField(L("chatPlaceholder"), text: $prompt, axis: .vertical).lineLimit(1...3).focused($focused)
                             .onSubmit { send() }
+                            .accessibilityIdentifier("chat.input")
                         Button { send() } label: { Image(systemName: "arrow.up.circle.fill").font(.title) }
                             .disabled(prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || busy)
                             .accessibilityLabel(L("send"))
+                            .accessibilityIdentifier("chat.send")
+                        Button {
+                            if speech.isListening || speech.isStarting { speech.stop() }
+                            else {
+                                voicePrefix = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+                                focused = false
+                                Task { await speech.start() }
+                            }
+                        } label: { Image(systemName: speech.isListening ? "stop.circle.fill" : "mic.fill").font(.title3).foregroundStyle(speech.isListening ? Color.red : Color.accentColor) }
+                            .disabled(busy).accessibilityLabel(L(speech.isListening ? "stopVoice" : "voiceInput"))
+                            .accessibilityIdentifier("chat.microphone")
+                            .accessibilityValue(speech.isListening ? "listening" : speech.isStarting ? "starting" : "idle")
                     }.padding(12).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22)).padding(.horizontal, 12).padding(.bottom, 4)
+                    }
                 }
             }
         }
         .sheet(isPresented: $showSettings) { NavigationStack { AISettingsView() } }
         .sheet(isPresented: $showPhoto) { if let image = displayImage { FullPhoto(image: image) } }
         .sheet(item: $detail) { GarmentEditor(existing: $0) }
+        .onChange(of: speech.transcript) { _, value in
+            guard !value.isEmpty else { return }
+            prompt = voicePrefix.isEmpty ? value : voicePrefix + " " + value
+        }
+        .onChange(of: speech.errorMessage) { _, value in if let value { store.error = value } }
+        .onChange(of: scenePhase) { _, value in if value == .background { speech.stop() } }
+        .onDisappear { speech.stop() }
         .onChange(of: store.epoch) { _, _ in current = nil; history = [] }
         .onChange(of: store.data.garments.map(\.id)) { _, ids in
             if let current, !current.items.allSatisfy(ids.contains) { self.current = nil }
@@ -156,6 +182,7 @@ struct TodayView: View {
 
     func action(_ icon: String, _ title: String, perform: @escaping () -> Void) -> some View {
         Button(action: perform) { VStack(spacing: 3) { Image(systemName: icon).font(.title3); Text(L(title)).font(.caption2) }.frame(minWidth: 44, minHeight: 44) }
+            .accessibilityIdentifier("look." + title)
     }
     func saveLook() {
         guard var value = look else { return }
@@ -191,6 +218,7 @@ struct TodayView: View {
         current = Look(title: L(occasion), items: chosen.map(\.id))
     }
     func send() {
+        speech.stop()
         let message = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !message.isEmpty, !busy else { return }
         prompt = ""; focused = false
@@ -217,7 +245,7 @@ struct TodayView: View {
                 let selected = store.data.garments.filter { parsed.item_ids.contains($0.id) }
                 guard selected.count == parsed.item_ids.count, !selected.isEmpty,
                       [Category.top, .bottom, .shoes].allSatisfy({ c in selected.filter { $0.category == c }.count == 1 }) else { throw AIError.invalidResponse }
-                guard epoch == store.epoch, AIConfiguration.current.validTextConsent else { return }
+                guard epoch == store.epoch, AIConfiguration.current == config, config.validTextConsent else { return }
                 let reply = parsed.reply.replacingOccurrences(of: "[A-Fa-f0-9]{8}-[A-Fa-f0-9-]{27,}", with: "", options: .regularExpression)
                 current = Look(title: L("yourLook"), items: selected.map(\.id))
                 store.data.messages.append(Chat(user: false, text: reply)); store.save()
@@ -233,7 +261,8 @@ struct TodayView: View {
         do {
             let photos = selected.compactMap { $0.image?.jpegData(compressionQuality: 0.82) }
             let image = try await AIClient(configuration: config, key: KeyVault.read(config.provider)).image(person: person, garments: photos)
-            guard epoch == store.epoch, AIConfiguration.current.validPhotoConsent else { return }
+            guard epoch == store.epoch, AIConfiguration.current == config, config.validPhotoConsent,
+                  look?.id == value.id, value.items.allSatisfy({ id in store.data.garments.contains { $0.id == id } }) else { return }
             value.image = image; current = value
             if let i = store.data.looks.firstIndex(where: { $0.id == value.id }) { store.data.looks[i] = value; store.save() }
         } catch { if epoch == store.epoch { store.error = error.localizedDescription } }
@@ -255,7 +284,7 @@ struct ClosetView: View {
                             Text(garment.displayName).font(.subheadline.weight(.medium)).lineLimit(2).frame(height: 40)
                             Text(garment.demo ? L("demo") : garment.category.title).font(.caption).foregroundStyle(.secondary)
                         }.frame(maxWidth: .infinity).multilineTextAlignment(.center).foregroundStyle(.primary)
-                    }.buttonStyle(.plain)
+                    }.buttonStyle(.plain).accessibilityIdentifier("closet.item." + (garment.asset ?? garment.id.uuidString))
                 }
             }.padding(14)
             if store.data.garments.isEmpty { ContentUnavailableView(L("closet"), systemImage: "tshirt", description: Text(L("emptyCloset"))) }
@@ -281,38 +310,43 @@ struct GarmentEditor: View {
     @State private var catalog: Data?
     @State private var processing = false
     @State private var enlarge = false
+    @State private var importToken = UUID()
     @State private var deleting = false
     var image: UIImage? { catalog.flatMap(UIImage.init(data:)) ?? existing?.image }
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    if let image { Button { enlarge = true } label: { PhotoView(image: image).frame(height: 220) }.buttonStyle(.plain).accessibilityLabel(L("enlarge")) }
+                    if let image { Button { enlarge = true } label: { PhotoView(image: image).frame(height: 220) }.buttonStyle(.plain).accessibilityLabel(L("enlarge")).accessibilityIdentifier("garment.photo") }
                     PhotoInput { data in
                         processing = true
+                        importToken = UUID(); let token = importToken; let epoch = store.epoch
                         Task {
                             let prepared = await Task.detached { ImageUtilities.preparedGarmentJPEG(from: data) }.value
                             let product = await Task.detached { GarmentCatalogImageService.catalogJPEG(from: data) }.value
+                            guard token == importToken, epoch == store.epoch else { return }
                             photo = prepared; catalog = product; processing = false
+                            if product == nil { store.error = L("photoError") }
                         }
                     }
                     if processing { ProgressView(L("processing")) }
                 }
                 Section {
-                    TextField(L("garmentName"), text: $name)
+                    TextField(L("garmentName"), text: $name).accessibilityIdentifier("garment.name")
                     Picker(L("category"), selection: $category) { ForEach(Category.allCases) { Text($0.title).tag($0) } }
-                    TextField(L("color"), text: $color)
+                    TextField(L("color"), text: $color).accessibilityIdentifier("garment.color")
                 }
                 if existing != nil { Button(L("deleteGarment"), role: .destructive) { deleting = true } }
             }
             .navigationTitle(L(existing == nil ? "addGarment" : "garmentDetails")).navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button(L("cancel")) { dismiss() } }
-                ToolbarItem(placement: .confirmationAction) { Button(L("save")) { save() }.disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || processing || image == nil) }
+                ToolbarItem(placement: .confirmationAction) { Button(L("save")) { save() }.disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || processing || image == nil).accessibilityIdentifier("garment.save") }
             }
             .onAppear { if let existing { name = existing.displayName; category = existing.category; color = existing.color } }
             .sheet(isPresented: $enlarge) { if let image { FullPhoto(image: image) } }
             .confirmationDialog(L("deleteGarment"), isPresented: $deleting) { Button(L("delete"), role: .destructive) { if let existing { store.remove(existing) }; dismiss() } }
+            .onDisappear { importToken = UUID() }
         }
     }
     func save() {
@@ -338,7 +372,7 @@ struct PhotoInput: View {
                 guard UIImagePickerController.isSourceTypeAvailable(.camera) else { error = L("cameraUnavailable"); return }
                 let allowed = await AVCaptureDevice.requestAccess(for: .video)
                 if allowed { camera = true } else { error = L("cameraPermission") }
-            } } label: { Label(L("camera"), systemImage: "camera") }.frame(maxWidth: .infinity)
+            } } label: { Label(L("camera"), systemImage: "camera") }.frame(maxWidth: .infinity).accessibilityIdentifier("photo.camera")
         }.buttonStyle(.bordered)
         .onChange(of: selected) { _, item in Task {
             do { if let data = try await item?.loadTransferable(type: Data.self) { receive(data) } }
@@ -376,6 +410,8 @@ struct TryOnView: View {
     @State private var busy = false
     @State private var settings = false
     @State private var enlarge = false
+    @State private var garmentToken = UUID()
+    @FocusState private var nameFocused: Bool
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -383,20 +419,24 @@ struct TryOnView: View {
                     Button { enlarge = true } label: {
                         PhotoView(image: result.flatMap(UIImage.init(data:)) ?? store.avatar)
                             .frame(height: max(280, geometry.size.height - 205))
-                    }.buttonStyle(.plain).accessibilityLabel(L("enlarge"))
+                    }.buttonStyle(.plain).accessibilityLabel(L("enlarge")).accessibilityIdentifier("tryon.photo")
                     PhotoInput { data in Task {
+                        garmentToken = UUID(); let token = garmentToken; let epoch = store.epoch
                         busy = true
-                        garment = await Task.detached { GarmentCatalogImageService.catalogJPEG(from: data) }.value
+                        let processed = await Task.detached { GarmentCatalogImageService.catalogJPEG(from: data) }.value
+                        guard token == garmentToken, epoch == store.epoch else { return }
+                        garment = processed
                         result = nil; busy = false
+                        if processed == nil { store.error = L("photoError") }
                     } }
                     HStack {
-                        Button { Task { await generate() } } label: { Label(L("aiImage"), systemImage: "sparkles") }.buttonStyle(.borderedProminent)
-                        Button { add() } label: { Label(L("addToCloset"), systemImage: "plus") }.buttonStyle(.bordered)
+                        Button { nameFocused = false; Task { await generate() } } label: { Label(L("aiImage"), systemImage: "sparkles") }.buttonStyle(.borderedProminent)
+                        Button { nameFocused = false; add() } label: { Label(L("addToCloset"), systemImage: "plus") }.buttonStyle(.bordered)
                     }.disabled(garment == nil || busy)
                     HStack {
                         if let garment { PhotoView(image: UIImage(data: garment)).frame(width: 50, height: 50) }
                         Picker(L("category"), selection: $category) { ForEach(Category.allCases) { Text($0.title).tag($0) } }.labelsHidden()
-                        TextField(L("garmentName"), text: $name).textFieldStyle(.roundedBorder)
+                        TextField(L("garmentName"), text: $name).textFieldStyle(.roundedBorder).focused($nameFocused)
                     }
                     if busy { ProgressView(L("processing")) }
                     Text(L("tryOnDisclaimer")).font(.caption).foregroundStyle(.secondary).multilineTextAlignment(.center)
@@ -405,21 +445,22 @@ struct TryOnView: View {
         }
         .sheet(isPresented: $settings) { NavigationStack { AISettingsView() } }
         .sheet(isPresented: $enlarge) { if let image = result.flatMap(UIImage.init(data:)) ?? store.avatar { FullPhoto(image: image) } }
-        .onChange(of: store.epoch) { _, _ in garment = nil; result = nil }
+        .onChange(of: store.epoch) { _, _ in garmentToken = UUID(); garment = nil; result = nil; busy = false }
     }
     func generate() async {
         let config = AIConfiguration.current
         guard config.validPhotoConsent else { settings = true; return }
         guard let garment, let person = store.avatar?.jpegData(compressionQuality: 0.85) else { return }
-        busy = true; let epoch = store.epoch; defer { busy = false }
+        busy = true; let epoch = store.epoch; let token = garmentToken
+        defer { if token == garmentToken { busy = false } }
         do {
             let image = try await AIClient(configuration: config, key: KeyVault.read(config.provider)).image(person: person, garments: [garment])
-            if epoch == store.epoch, AIConfiguration.current.validPhotoConsent { result = image }
+            if epoch == store.epoch, token == garmentToken, AIConfiguration.current == config, config.validPhotoConsent { result = image }
         } catch { if epoch == store.epoch { store.error = error.localizedDescription } }
     }
     func add() {
         guard let garment else { return }
         store.data.garments.append(Garment(name: name.isEmpty ? category.title : name, category: category, photo: garment, catalog: garment))
-        store.save(); self.garment = nil; name = ""; store.error = L("added")
+        store.save(); garmentToken = UUID(); self.garment = nil; name = ""; store.error = L("added")
     }
 }

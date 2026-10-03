@@ -2,3 +2,5 @@
 "CFBundleName" = "AIクローゼット";
 "NSCameraUsageDescription" = "衣服や任意の全身参考写真を撮影し、試着に使います。";
 "NSLocationWhenInUseUsageDescription" = "おおよその位置から天気に合うコーデを提案します。";
+"NSMicrophoneUsageDescription" = "マイクをタップしたときだけ録音し、コーデの希望を音声入力します。";
+"NSSpeechRecognitionUsageDescription" = "Appleの音声認識で編集可能なテキストに変換します。端末内で認識できない場合はAppleが音声を処理することがあります。";

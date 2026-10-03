@@ -2,3 +2,5 @@
 "CFBundleName" = "AI衣櫥";
 "NSCameraUsageDescription" = "拍攝衣物或可選個人參考照片，用於虛擬試穿。";
 "NSLocationWhenInUseUsageDescription" = "使用概略位置取得當地天氣，推薦適合的穿搭。";
+"NSMicrophoneUsageDescription" = "使用麥克風聽寫穿搭要求，僅點按麥克風後開始錄音。";
+"NSSpeechRecognitionUsageDescription" = "使用Apple語音辨識轉為可編輯文字，本機辨識不可用時音訊可能由Apple處理。";

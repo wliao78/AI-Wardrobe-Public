@@ -2,3 +2,5 @@
 "CFBundleName" = "Garde-robe IA";
 "NSCameraUsageDescription" = "Photographiez des vêtements ou des références corporelles pour l’essayage.";
 "NSLocationWhenInUseUsageDescription" = "Utilisez la position approximative pour adapter les tenues à la météo.";
+"NSMicrophoneUsageDescription" = "Dictez vos envies de tenue. L’enregistrement commence au toucher du microphone.";
+"NSSpeechRecognitionUsageDescription" = "Apple convertit vos souhaits en texte. Si la reconnaissance locale est indisponible, Apple peut traiter l’audio.";

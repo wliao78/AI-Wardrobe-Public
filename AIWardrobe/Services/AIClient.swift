@@ -49,7 +49,7 @@ enum AIProvider: String, Codable, CaseIterable, Identifiable {
     }
 }
 
-struct AIConfiguration: Codable, Sendable {
+struct AIConfiguration: Codable, Sendable, Equatable {
     var provider: AIProvider = .openai
     var endpoint = AIProvider.openai.endpoint
     var model = AIProvider.openai.model

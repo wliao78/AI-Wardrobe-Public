@@ -1,4 +1,6 @@
-"CFBundleDisplayName" = "AI Wardrobe";
+"CFBundleDisplayName" = "AI My Wardrobe";
 "CFBundleName" = "AI Wardrobe";
 "NSCameraUsageDescription" = "Photograph clothing or take optional body reference photos for virtual try-on.";
 "NSLocationWhenInUseUsageDescription" = "Use your approximate location to suggest outfits for the local weather.";
+"NSMicrophoneUsageDescription" = "Use the microphone to dictate outfit requests. Recording starts only when you tap the microphone.";
+"NSSpeechRecognitionUsageDescription" = "Convert requests to editable text with Apple speech recognition. Apple may process audio when on-device recognition is unavailable.";

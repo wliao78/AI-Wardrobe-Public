@@ -54,10 +54,12 @@ final class WardrobeStore {
     var error: String?
     var epoch = UUID()
     private let file: URL
+    private let resetAI: () throws -> Void
     private var storageReadable = true
 
-    init() {
-        let folder = URL.applicationSupportDirectory.appending(path: "PublicWardrobe", directoryHint: .isDirectory)
+    init(folder suppliedFolder: URL? = nil, resetAI: @escaping () throws -> Void = { try AIConfiguration.eraseAll() }) {
+        self.resetAI = resetAI
+        let folder = suppliedFolder ?? URL.applicationSupportDirectory.appending(path: "PublicWardrobe", directoryHint: .isDirectory)
         file = folder.appending(path: "wardrobe.json")
         do {
             try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
@@ -108,7 +110,7 @@ final class WardrobeStore {
     }
 
     func erase() {
-        do { try AIConfiguration.eraseAll() }
+        do { try resetAI() }
         catch { self.error = error.localizedDescription; return }
         epoch = UUID()
         storageReadable = true
@@ -120,7 +122,14 @@ final class WardrobeStore {
 
 @main
 struct AIWardrobeApp: App {
-    @State private var store = WardrobeStore()
+    @State private var store: WardrobeStore = {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-ui-testing") {
+            return WardrobeStore(folder: URL.temporaryDirectory.appending(path: "WardrobeUITests-" + UUID().uuidString))
+        }
+        #endif
+        return WardrobeStore()
+    }()
     var body: some Scene {
         WindowGroup {
             RootView().environment(store).tint(Color(red: 0.36, green: 0.29, blue: 0.92))

@@ -17,7 +17,9 @@ enum ImageUtilities {
         guard let image = UIImage(data: data) else { return nil }
         let scale = min(1, maxDimension / max(image.size.width, image.size.height))
         let target = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        let renderer = UIGraphicsImageRenderer(size: target)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: target, format: format)
         let resized = renderer.image { _ in image.draw(in: CGRect(origin: .zero, size: target)) }
         return resized.jpegData(compressionQuality: 0.82)
     }

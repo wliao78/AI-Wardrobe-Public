@@ -44,8 +44,8 @@ struct ProfileView: View {
                 Button(L("removeBodyPhotos"), role: .destructive) { removePhotos = true }
             }
             Section {
-                NavigationLink(L("aiSettings")) { AISettingsView() }
-                NavigationLink(L("savedLooks")) { SavedLooksView() }
+                NavigationLink(L("aiSettings")) { AISettingsView() }.accessibilityIdentifier("profile.aiSettings")
+                NavigationLink(L("savedLooks")) { SavedLooksView() }.accessibilityIdentifier("profile.savedLooks")
                 Button(L("restoreDemo")) { store.addDemo() }
             }
             Section(L("privacy")) {
@@ -101,20 +101,20 @@ struct AISettingsView: View {
             Section(L("provider")) {
                 Picker(L("provider"), selection: $configuration.provider) {
                     ForEach(AIProvider.allCases) { Text($0.title).tag($0) }
-                }.onChange(of: configuration.provider) { _, provider in
+                }.accessibilityIdentifier("ai.provider").onChange(of: configuration.provider) { _, provider in
                     configuration.endpoint = provider.endpoint; configuration.model = provider.model
                     configuration.imageModel = provider.imageModel
                     configuration.textConsent = false; configuration.photoConsent = false; configuration.approvedEndpoint = ""
                     key = KeyVault.read(provider)
                 }
-                SecureField("API Key", text: $key).textInputAutocapitalization(.never).autocorrectionDisabled()
+                SecureField("API Key", text: $key).textInputAutocapitalization(.never).autocorrectionDisabled().accessibilityIdentifier("ai.key")
                 TextField(L("model"), text: $configuration.model).textInputAutocapitalization(.never).autocorrectionDisabled()
                 if configuration.provider == .custom || configuration.provider == .qwen {
                     TextField("https://…/v1", text: $configuration.endpoint).textInputAutocapitalization(.never).autocorrectionDisabled().keyboardType(.URL)
                         .onChange(of: configuration.endpoint) { _, _ in configuration.textConsent = false; configuration.photoConsent = false }
                 } else { Text(configuration.endpoint).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
                 if configuration.provider.supportsImages {
-                    TextField(L("imageModel"), text: $configuration.imageModel).textInputAutocapitalization(.never).autocorrectionDisabled()
+                    TextField(L("imageModel"), text: $configuration.imageModel).textInputAutocapitalization(.never).autocorrectionDisabled().accessibilityIdentifier("ai.imageModel")
                 } else { Text(L("imageUnsupported")).font(.caption).foregroundStyle(.secondary) }
                 Button(L("testConnection")) { Task { await test() } }.disabled(testing || key.isEmpty)
                 if testing { ProgressView() }
@@ -124,10 +124,10 @@ struct AISettingsView: View {
                 Text(configuration.provider.title).font(.headline)
                 Text(configuration.endpoint).font(.caption).textSelection(.enabled)
                 Text(L("textConsentDetails")).font(.subheadline)
-                Toggle(L("allowText"), isOn: $configuration.textConsent)
+                Toggle(L("allowText"), isOn: $configuration.textConsent).accessibilityIdentifier("ai.textConsent")
                 if configuration.provider.supportsImages {
                     Text(L("photoConsentDetails")).font(.subheadline)
-                    Toggle(L("allowPhotos"), isOn: $configuration.photoConsent).disabled(!configuration.textConsent)
+                    Toggle(L("allowPhotos"), isOn: $configuration.photoConsent).disabled(!configuration.textConsent).accessibilityIdentifier("ai.photoConsent")
                 }
                 Link(L("providerPrivacy"), destination: configuration.provider.privacyURL)
                 Text(L("revokeNote")).font(.caption).foregroundStyle(.secondary)

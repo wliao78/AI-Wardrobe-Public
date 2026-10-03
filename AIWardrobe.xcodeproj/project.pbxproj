@@ -7,6 +7,28 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+200000000000000000000001 = {isa = PBXNativeTarget; buildConfigurationList = 200000000000000000000061; buildPhases = (200000000000000000000031, 200000000000000000000041, 200000000000000000000051); dependencies = (200000000000000000000091); fileSystemSynchronizedGroups = (200000000000000000000011); name = WardrobeTests; productName = WardrobeTests; productReference = 200000000000000000000021; productType = "com.apple.product-type.bundle.unit-test"; };
+200000000000000000000011 = {isa = PBXFileSystemSynchronizedRootGroup; path = WardrobeTests; sourceTree = "<group>"; };
+200000000000000000000021 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = WardrobeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+200000000000000000000031 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000041 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000051 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000061 = {isa = XCConfigurationList; buildConfigurations = (200000000000000000000071, 200000000000000000000081); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+200000000000000000000071 = {isa = XCBuildConfiguration; buildSettings = {GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = 35RFY8FZJS; IPHONEOS_DEPLOYMENT_TARGET = 18.0; PRODUCT_BUNDLE_IDENTIFIER = com.tinyworm.AIWardrobe.Public.WardrobeTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; BUNDLE_LOADER = "$(TEST_HOST)"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIWardrobe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIWardrobe";}; name = Debug; };
+200000000000000000000081 = {isa = XCBuildConfiguration; buildSettings = {GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = 35RFY8FZJS; IPHONEOS_DEPLOYMENT_TARGET = 18.0; PRODUCT_BUNDLE_IDENTIFIER = com.tinyworm.AIWardrobe.Public.WardrobeTests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; BUNDLE_LOADER = "$(TEST_HOST)"; TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIWardrobe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIWardrobe";}; name = Release; };
+200000000000000000000091 = {isa = PBXTargetDependency; target = 100000000000000000000002; targetProxy = 200000000000000000000101; };
+200000000000000000000101 = {isa = PBXContainerItemProxy; containerPortal = 100000000000000000000001; proxyType = 1; remoteGlobalIDString = 100000000000000000000002; remoteInfo = AIWardrobe; };
+200000000000000000000002 = {isa = PBXNativeTarget; buildConfigurationList = 200000000000000000000062; buildPhases = (200000000000000000000032, 200000000000000000000042, 200000000000000000000052); dependencies = (200000000000000000000092); fileSystemSynchronizedGroups = (200000000000000000000012); name = WardrobeUITests; productName = WardrobeUITests; productReference = 200000000000000000000022; productType = "com.apple.product-type.bundle.ui-testing"; };
+200000000000000000000012 = {isa = PBXFileSystemSynchronizedRootGroup; path = WardrobeUITests; sourceTree = "<group>"; };
+200000000000000000000022 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = WardrobeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+200000000000000000000032 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000042 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000052 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+200000000000000000000062 = {isa = XCConfigurationList; buildConfigurations = (200000000000000000000072, 200000000000000000000082); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+200000000000000000000072 = {isa = XCBuildConfiguration; buildSettings = {GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = 35RFY8FZJS; IPHONEOS_DEPLOYMENT_TARGET = 18.0; PRODUCT_BUNDLE_IDENTIFIER = com.tinyworm.AIWardrobe.Public.WardrobeUITests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; TEST_TARGET_NAME = AIWardrobe;}; name = Debug; };
+200000000000000000000082 = {isa = XCBuildConfiguration; buildSettings = {GENERATE_INFOPLIST_FILE = YES; CODE_SIGN_STYLE = Automatic; DEVELOPMENT_TEAM = 35RFY8FZJS; IPHONEOS_DEPLOYMENT_TARGET = 18.0; PRODUCT_BUNDLE_IDENTIFIER = com.tinyworm.AIWardrobe.Public.WardrobeUITests; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; TEST_TARGET_NAME = AIWardrobe;}; name = Release; };
+200000000000000000000092 = {isa = PBXTargetDependency; target = 100000000000000000000002; targetProxy = 200000000000000000000102; };
+200000000000000000000102 = {isa = PBXContainerItemProxy; containerPortal = 100000000000000000000001; proxyType = 1; remoteGlobalIDString = 100000000000000000000002; remoteInfo = AIWardrobe; };
 		100000000000000000000009 /* AIWardrobe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIWardrobe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -33,6 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				100000000000000000000005 /* AIWardrobe */,
+				200000000000000000000011,
+				200000000000000000000012,
 				100000000000000000000004 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				100000000000000000000009 /* AIWardrobe.app */,
+				200000000000000000000021,
+				200000000000000000000022,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +132,8 @@
 			projectRoot = "";
 			targets = (
 				100000000000000000000002 /* AIWardrobe */,
+				200000000000000000000001,
+				200000000000000000000002,
 			);
 		};
 /* End PBXProject section */
@@ -165,7 +193,7 @@
 				DEVELOPMENT_TEAM = 35RFY8FZJS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/AIWardrobe-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "AI Wardrobe";
+				INFOPLIST_KEY_CFBundleDisplayName = "AI My Wardrobe";
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍摄衣物与身体参考照片，帮助生成穿搭建议。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用当前位置天气生成合适的今日穿搭。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "使用语音描述今天的场合和穿搭偏好。";
@@ -198,7 +226,7 @@
 				DEVELOPMENT_TEAM = 35RFY8FZJS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/AIWardrobe-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "AI Wardrobe";
+				INFOPLIST_KEY_CFBundleDisplayName = "AI My Wardrobe";
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍摄衣物与身体参考照片，帮助生成穿搭建议。";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "使用当前位置天气生成合适的今日穿搭。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "使用语音描述今天的场合和穿搭偏好。";

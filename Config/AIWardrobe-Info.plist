@@ -6,4 +6,6 @@
 <key>CFBundleDevelopmentRegion</key><string>en</string>
 <key>NSCameraUsageDescription</key><string>Photograph clothing or take optional body reference photos for virtual try-on.</string>
 <key>NSLocationWhenInUseUsageDescription</key><string>Use your approximate location to suggest outfits for the local weather.</string>
+<key>NSMicrophoneUsageDescription</key><string>Use the microphone only when you choose voice input for outfit requests.</string>
+<key>NSSpeechRecognitionUsageDescription</key><string>Convert your spoken outfit request into an editable draft using Apple speech recognition.</string>
 </dict></plist>

@@ -2,3 +2,5 @@
 "CFBundleName" = "Armario IA";
 "NSCameraUsageDescription" = "Fotografía prendas o referencias corporales opcionales para la prueba virtual.";
 "NSLocationWhenInUseUsageDescription" = "Usa la ubicación aproximada para sugerir conjuntos según el tiempo.";
+"NSMicrophoneUsageDescription" = "Dicta tus preferencias. La grabación comienza al tocar el micrófono.";
+"NSSpeechRecognitionUsageDescription" = "Apple convierte tus preferencias en texto. Si no hay reconocimiento local, Apple puede procesar el audio.";
