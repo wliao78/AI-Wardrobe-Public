@@ -1,5 +1,7 @@
 import Foundation
 
+let imageFixture = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="
+
 func L(_ key: String) -> String { key }
 
 final class RecordedRequests: @unchecked Sendable {
@@ -19,8 +21,8 @@ final class MockProtocol: URLProtocol, @unchecked Sendable {
         let path = request.url!.path
         let body: String
         if path.hasSuffix("/messages") { body = "{\"content\":[{\"type\":\"text\",\"text\":\"OK\"}]}" }
-        else if path.contains("generateContent") { body = "{\"candidates\":[{\"content\":{\"parts\":[{\"inlineData\":{\"data\":\"aW1hZ2U=\"}}]}}]}" }
-        else if path.hasSuffix("/images/edits") { body = "{\"data\":[{\"b64_json\":\"aW1hZ2U=\"}]}" }
+        else if path.contains("generateContent") { body = "{\"candidates\":[{\"content\":{\"parts\":[{\"inlineData\":{\"data\":\"\(imageFixture)\"}}]}}]}" }
+        else if path.hasSuffix("/images/edits") { body = "{\"data\":[{\"b64_json\":\"\(imageFixture)\"}]}" }
         else { body = "{\"choices\":[{\"message\":{\"content\":\"OK\"}}]}" }
         let status = request.value(forHTTPHeaderField: "Authorization") == "Bearer invalid" ? 401 : 200
         client?.urlProtocol(self, didReceive: HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: nil)!, cacheStoragePolicy: .notAllowed)
@@ -78,8 +80,12 @@ final class MockProtocol: URLProtocol, @unchecked Sendable {
             catch AIError.photoConsent {}
             config.photoConsent = true
             let result = try await AIClient(configuration: config, key: "test", session: session).image(person: Data("person".utf8), garments: [Data("clothing".utf8)])
-            require(result == Data("image".utf8), "Image decoding")
+            require(result == Data(base64Encoded: imageFixture), "Image decoding")
             require(MockProtocol.requests.last?.url?.query == nil, "Key leaked in URL")
+        }
+        for invalid in ["", "%%%", Data("not an image".utf8).base64EncodedString()] {
+            do { _ = try AIClient.decodedImage(invalid); fatalError("Malformed image accepted") }
+            catch AIError.invalidResponse {}
         }
         config = AIConfiguration(); config.textConsent = true; config.approvedEndpoint = "https://old.example/v1"
         do { _ = try await AIClient(configuration: config, key: "test", session: session).text("private", system: "test"); fatalError("Endpoint consent not invalidated") }

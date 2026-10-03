@@ -3,6 +3,60 @@ import Observation
 
 func L(_ key: String) -> String { NSLocalizedString(key, comment: "") }
 
+enum BodyMeasurementUnits: Equatable {
+    case metric, us, uk
+    init(locale: Locale) {
+        switch locale.measurementSystem {
+        case .us: self = .us
+        case .uk: self = .uk
+        default: self = .metric
+        }
+    }
+    var imperialHeight: Bool { self != .metric }
+    var heightLabel: String { imperialHeight ? "heightFeetInches" : "heightCM" }
+    var weightLabel: String { self == .metric ? "weightKG" : self == .uk ? "weightStonePounds" : "weightPounds" }
+
+    func heightFields(_ cm: Double?, locale: Locale) -> (main: String, secondary: String) {
+        guard let cm else { return ("", "") }
+        guard imperialHeight else { return (number(cm, locale: locale), "") }
+        let inches = (cm / 2.54 * 10).rounded() / 10
+        let feet = floor(inches / 12)
+        return (number(feet, locale: locale), number(inches - feet * 12, locale: locale))
+    }
+    func weightFields(_ kg: Double?, locale: Locale) -> (main: String, secondary: String) {
+        guard let kg else { return ("", "") }
+        guard self != .metric else { return (number(kg, locale: locale), "") }
+        let pounds = (kg / 0.45359237 * 10).rounded() / 10
+        guard self == .uk else { return (number(pounds, locale: locale), "") }
+        let stones = floor(pounds / 14)
+        return (number(stones, locale: locale), number(pounds - stones * 14, locale: locale))
+    }
+    func heightCM(_ main: String, secondary: String, locale: Locale) -> Double? {
+        guard let primary = parse(main, locale: locale) else { return nil }
+        if !imperialHeight { return primary }
+        guard primary == floor(primary), let inches = parse(secondary, locale: locale), inches < 12 else { return nil }
+        return (primary * 12 + inches) * 2.54
+    }
+    func weightKG(_ main: String, secondary: String, locale: Locale) -> Double? {
+        guard let primary = parse(main, locale: locale) else { return nil }
+        if self == .metric { return primary }
+        if self == .us { return primary * 0.45359237 }
+        guard primary == floor(primary), let pounds = parse(secondary, locale: locale), pounds < 14 else { return nil }
+        return (primary * 14 + pounds) * 0.45359237
+    }
+    private func number(_ value: Double, locale: Locale) -> String {
+        value.formatted(.number.grouping(.never).precision(.fractionLength(0...1)).locale(locale))
+    }
+    private func parse(_ text: String, locale: Locale) -> Double? {
+        let value = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if value.isEmpty { return 0 }
+        let parser = NumberFormatter(); parser.locale = locale; parser.numberStyle = .decimal
+        let separator = NSRegularExpression.escapedPattern(for: parser.decimalSeparator ?? ".")
+        guard value.range(of: "^[0-9]+(?:\(separator)[0-9]+)?$", options: .regularExpression) != nil else { return nil }
+        return parser.number(from: value)?.doubleValue
+    }
+}
+
 enum Category: String, Codable, CaseIterable, Identifiable {
     case top, bottom, outerwear, shoes, accessory
     var id: String { rawValue }
@@ -18,7 +72,16 @@ struct Garment: Codable, Identifiable, Equatable {
     var catalog: Data?
     var asset: String?
     var demo = false
+    var style: String?
+    var quickOverlay: Data?
     var displayName: String { demo ? L(name) : name }
+    var displayStyle: String {
+        if let style, !style.isEmpty { return style }
+        guard demo else { return "" }
+        if ["white-oxford", "charcoal-trousers", "brown-leather-shoes"].contains(asset ?? "") { return L("styleFormal") }
+        if ["gray-performance-top", "black-hiking-pants", "gray-hiking-shoes"].contains(asset ?? "") { return L("outdoor") }
+        return L("styleCasual")
+    }
     var image: UIImage? { catalog.flatMap(UIImage.init(data:)) ?? asset.flatMap(UIImage.init(named:)) ?? photo.flatMap(UIImage.init(data:)) }
 }
 
@@ -45,6 +108,9 @@ struct WardrobeData: Codable {
     var bodyPhotos: [String: Data] = [:]
     var gender = "male"
     var modelRegion = "auto"
+    var heightCM: Double?
+    var weightKG: Double?
+    var recommendationSelection: [UUID]?
     var initialized = false
 }
 
@@ -105,6 +171,7 @@ final class WardrobeStore {
 
     func remove(_ garment: Garment) {
         data.garments.removeAll { $0.id == garment.id }
+        data.recommendationSelection?.removeAll { $0 == garment.id }
         data.looks.removeAll { $0.items.contains(garment.id) }
         save()
     }
@@ -113,6 +180,7 @@ final class WardrobeStore {
         do { try resetAI() }
         catch { self.error = error.localizedDescription; return }
         epoch = UUID()
+        OfflineOutfitPreview.clearCache()
         storageReadable = true
         data = WardrobeData(); data.initialized = true
         URLCache.shared.removeAllCachedResponses()

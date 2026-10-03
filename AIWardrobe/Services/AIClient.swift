@@ -1,5 +1,6 @@
 import Foundation
 import Security
+import ImageIO
 
 enum AIProvider: String, Codable, CaseIterable, Identifiable {
     case openai, gemini, anthropic, deepseek, qwen, custom
@@ -20,15 +21,15 @@ enum AIProvider: String, Codable, CaseIterable, Identifiable {
         case .gemini: "https://generativelanguage.googleapis.com/v1beta/openai"
         case .anthropic: "https://api.anthropic.com/v1"
         case .deepseek: "https://api.deepseek.com"
-        case .qwen: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+        case .qwen: "https://dashscope-us.aliyuncs.com/compatible-mode/v1"
         case .custom: ""
         }
     }
     var model: String {
         switch self {
         case .openai: "gpt-4.1-mini"
-        case .gemini: "gemini-2.5-flash"
-        case .anthropic: "claude-sonnet-4-5"
+        case .gemini: "gemini-3.8-flash"
+        case .anthropic: "claude-sonnet-5-5"
         case .deepseek: "deepseek-flash"
         case .qwen: "qwen-plus"
         case .custom: ""
@@ -194,7 +195,7 @@ struct AIClient: Sendable {
             request.setValue(key, forHTTPHeaderField: "x-goog-api-key")
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             let parts: [[String: Any]] = [["text": prompt]] + ([person] + garments).map { ["inline_data": ["mime_type": "image/jpeg", "data": $0.base64EncodedString()]] }
-            request.httpBody = try JSONSerialization.data(withJSONObject: ["contents": [["parts": parts]], "generationConfig": ["responseModalities": ["TEXT", "IMAGE"]]])
+            request.httpBody = try JSONSerialization.data(withJSONObject: ["contents": [["parts": parts]], "generationConfig": ["responseModalities": ["TEXT", "IMAGE"], "imageConfig": ["aspectRatio": "2:3"]]])
         } else {
             request = URLRequest(url: base.appending(path: "images/edits"))
             let boundary = UUID().uuidString
@@ -218,12 +219,28 @@ struct AIClient: Sendable {
            let content = candidates.first?["content"] as? [String: Any], let parts = content["parts"] as? [[String: Any]] {
             for part in parts {
                 if let inline = (part["inlineData"] ?? part["inline_data"]) as? [String: Any],
-                   let encoded = inline["data"] as? String, let data = Data(base64Encoded: encoded) { return data }
+                   let encoded = inline["data"] as? String { return try Self.decodedImage(encoded) }
             }
         }
-        if let images = json["data"] as? [[String: Any]], let encoded = images.first?["b64_json"] as? String,
-           let data = Data(base64Encoded: encoded) { return data }
+        if let images = json["data"] as? [[String: Any]], let encoded = images.first?["b64_json"] as? String {
+            return try Self.decodedImage(encoded)
+        }
         throw AIError.invalidResponse
+    }
+
+    static func decodedImage(_ encoded: String) throws -> Data {
+        // A valid Base64 string is not necessarily a displayable photograph.
+        // Reject malformed or unreasonably large images before saving a look.
+        guard encoded.utf8.count <= 40_000_000,
+              let data = Data(base64Encoded: encoded), !data.isEmpty,
+              let source = CGImageSourceCreateWithData(data as CFData, nil),
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+              let width = properties[kCGImagePropertyPixelWidth] as? Int,
+              let height = properties[kCGImagePropertyPixelHeight] as? Int,
+              width > 0, height > 0, width <= 12_000, height <= 12_000,
+              width * height <= 24_000_000,
+              CGImageSourceCreateImageAtIndex(source, 0, nil) != nil else { throw AIError.invalidResponse }
+        return data
     }
 
     private func send(_ request: URLRequest) async throws -> [String: Any] {

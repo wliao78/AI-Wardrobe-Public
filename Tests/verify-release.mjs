@@ -24,6 +24,9 @@ const files = fs.readdirSync(`${root}/AIWardrobe`, {recursive:true}).filter(f=>f
 assert(!files.some(f=>/PersonalCatalog|WornCatalog|default-front|real-|\.heic$/i.test(f)), 'Private assets present');
 for (const region of ['cn','jp','us','gb','fr','de','es']) {
   assert(fs.existsSync(`${root}/AIWardrobe/Resources/PublicAssets.xcassets/models-${region}.imageset/models-${region}.png`));
+  for (const variant of ['office','weekend','outdoor','jacket']) {
+    assert(fs.existsSync(`${root}/AIWardrobe/Resources/PublicAssets.xcassets/worn-${region}-${variant}.imageset/worn-${region}-${variant}.png`));
+  }
 }
 for (const scene of ['office','weekend','outdoor']) {
   assert(fs.existsSync(`${root}/AIWardrobe/Resources/PublicAssets.xcassets/demo-${scene}.imageset/demo-${scene}.png`));

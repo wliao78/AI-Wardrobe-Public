@@ -25,6 +25,116 @@ final class FakeSpeechBackend: SpeechInputBackend {
 }
 
 final class WardrobeTests: XCTestCase {
+    func testAIImageResponseRequiresDisplayablePhoto() throws {
+        let format = UIGraphicsImageRendererFormat(); format.scale = 1
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 16, height: 24), format: format).image { context in
+            UIColor.blue.setFill(); context.fill(CGRect(x: 0, y: 0, width: 16, height: 24))
+        }
+        let jpeg = try XCTUnwrap(image.jpegData(compressionQuality: 0.8))
+        XCTAssertEqual(try AIClient.decodedImage(jpeg.base64EncodedString()), jpeg)
+        for invalid in ["", "%%%", Data("not a photo".utf8).base64EncodedString()] {
+            XCTAssertThrowsError(try AIClient.decodedImage(invalid)) { error in
+                guard case AIError.invalidResponse = error else { return XCTFail("Unexpected error: \(error)") }
+            }
+        }
+    }
+    @MainActor func testRegionalWornReferencesAndComposedPreviews() throws {
+        for region in ["us", "cn", "jp", "gb", "fr", "de", "es"] {
+            for gender in ["male", "female"] {
+                for variant in ["office", "weekend", "outdoor", "jacket"] {
+                    let image = try XCTUnwrap(OfflineOutfitPreview.reference(variant: variant, gender: gender, region: region), "\(region) \(gender) \(variant)")
+                    XCTAssertEqual(image.size.height / image.size.width, 1.5, accuracy: 0.02)
+                }
+            }
+        }
+        let store = WardrobeStore(folder: FileManager.default.temporaryDirectory.appending(path: UUID().uuidString), resetAI: {})
+        let sets = [["white-oxford", "charcoal-trousers", "brown-leather-shoes"],
+                    ["navy-polo", "black-hiking-pants", "gray-hiking-shoes"],
+                    ["white-oxford", "beige-chinos", "white-sneakers", "navy-jacket"],
+                    ["gray-performance-top", "charcoal-trousers", "brown-leather-shoes", "navy-jacket"],
+                    ["gray-performance-top", "beige-chinos", "white-sneakers"],
+                    ["white-oxford", "black-hiking-pants", "white-sneakers"],
+                    ["navy-polo", "charcoal-trousers", "white-sneakers"]]
+        for region in ["us", "cn", "jp", "gb", "fr", "de", "es"] {
+            for gender in ["male", "female"] {
+                store.data.modelRegion = region; store.data.gender = gender
+                var encoded = Set<Data>()
+                for (index, assets) in sets.enumerated() {
+                    let garments = store.data.garments.filter { assets.contains($0.asset ?? "") }
+                    let image = try XCTUnwrap(OfflineOutfitPreview.image(garments: garments, store: store))
+                    XCTAssertTrue(encoded.insert(try XCTUnwrap(image.pngData())).inserted, "A changed outfit must change the offline image")
+                    let attachment = XCTAttachment(image: image); attachment.name = "worn-\(region)-\(gender)-\(index)"; attachment.lifetime = .keepAlways; add(attachment)
+                }
+            }
+        }
+    }
+    @MainActor func testWhiteSneakerMaskDoesNotCopyDonorChinoCuffs() {
+        let format = UIGraphicsImageRendererFormat(); format.scale = 1
+        let image = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 150), format: format).image { _ in
+            UIColor.white.setFill(); UIRectFill(CGRect(x: 0, y: 0, width: 100, height: 150))
+            UIColor(red: 0.75, green: 0.68, blue: 0.55, alpha: 1).setFill()
+            UIRectFill(CGRect(x: 30, y: 120, width: 15, height: 12))
+        }
+        let mask = OfflineOutfitPreview.shoeMask(image, variant: "weekend", defaultAnkle: 0.848)
+        XCTAssertFalse(mask.contains(CGPoint(x: 35.5, y: 130.5)), "Beige donor cuff must remain outside the shoe layer")
+        XCTAssertTrue(mask.contains(CGPoint(x: 35.5, y: 133.5)), "The sneaker below the cuff must remain visible")
+        XCTAssertTrue(mask.contains(CGPoint(x: 20.5, y: 130.5)), "Background outside the cuff still replaces old shoe edges")
+    }
+    @MainActor func testBundledCatalogOfflineMasks() async {
+        for asset in ["white-oxford", "navy-polo", "charcoal-trousers", "navy-jacket", "brown-leather-shoes"] {
+            let image = UIImage(named: "cutout-" + asset)!
+            let bytes = image.pngData()!
+            let mask = await Task.detached { GarmentCutoutService.fittedPNG(bytes) }.value
+            XCTAssertNotNil(mask, asset)
+        }
+    }
+    func testExistingWardrobeDecodesWithoutNewMeasurements() throws {
+        let old = Data(#"{"garments":[],"looks":[],"messages":[],"bodyPhotos":{},"gender":"male","modelRegion":"auto","initialized":true}"#.utf8)
+        var decoded = try JSONDecoder().decode(WardrobeData.self, from: old)
+        XCTAssertNil(decoded.heightCM); XCTAssertNil(decoded.weightKG)
+        decoded.heightCM = 175; decoded.weightKG = 70.5
+        let restored = try JSONDecoder().decode(WardrobeData.self, from: JSONEncoder().encode(decoded))
+        XCTAssertEqual(restored.heightCM, 175); XCTAssertEqual(restored.weightKG, 70.5)
+    }
+    func testRegionalBodyMeasurementUnitsAndConversions() throws {
+        let us = Locale(identifier: "en_US"), uk = Locale(identifier: "en_GB"), fr = Locale(identifier: "fr_FR")
+        XCTAssertEqual(BodyMeasurementUnits(locale: us), .us)
+        XCTAssertEqual(BodyMeasurementUnits(locale: uk), .uk)
+        for identifier in ["zh_CN", "zh_TW", "ja_JP", "fr_FR", "de_DE", "es_ES", "en_CA", "en_AU"] {
+            XCTAssertEqual(BodyMeasurementUnits(locale: Locale(identifier: identifier)), .metric, identifier)
+        }
+        // Region/measurement preferences, not the interface's language.
+        XCTAssertEqual(BodyMeasurementUnits(locale: Locale(identifier: "zh_US")), .us)
+        XCTAssertEqual(BodyMeasurementUnits(locale: Locale(identifier: "en_US@measure=metric")), .metric)
+        let height = BodyMeasurementUnits.us.heightFields(175, locale: us)
+        XCTAssertEqual(height.main, "5"); XCTAssertEqual(height.secondary, "8.9")
+        XCTAssertEqual(BodyMeasurementUnits.us.weightFields(70.5, locale: us).main, "155.4")
+        let britishWeight = BodyMeasurementUnits.uk.weightFields(70.5, locale: uk)
+        XCTAssertEqual(britishWeight.main, "11"); XCTAssertEqual(britishWeight.secondary, "1.4")
+        XCTAssertEqual(try XCTUnwrap(BodyMeasurementUnits.us.heightCM("5", secondary: "9", locale: us)), 175.26, accuracy: 0.00001)
+        XCTAssertEqual(try XCTUnwrap(BodyMeasurementUnits.us.weightKG("155.4", secondary: "", locale: us)), 70.488254298, accuracy: 0.00001)
+        XCTAssertEqual(try XCTUnwrap(BodyMeasurementUnits.uk.weightKG("11", secondary: "1.4", locale: uk)), 70.488254298, accuracy: 0.00001)
+        XCTAssertEqual(BodyMeasurementUnits.metric.weightFields(70.5, locale: fr).main, "70,5")
+        XCTAssertEqual(BodyMeasurementUnits.metric.weightKG("70,5", secondary: "", locale: fr), 70.5)
+        XCTAssertNil(BodyMeasurementUnits.us.heightCM("5", secondary: "12", locale: us))
+        XCTAssertNil(BodyMeasurementUnits.uk.weightKG("11", secondary: "14", locale: uk))
+        XCTAssertNil(BodyMeasurementUnits.metric.heightCM("175abc", secondary: "", locale: us))
+        XCTAssertNil(BodyMeasurementUnits.us.weightKG("-1", secondary: "", locale: us))
+    }
+    @MainActor func testWeatherUsesOneDecimalAndRegionalUnits() {
+        let expected: [(String, String)] = [
+            ("en_US", "68.2"), ("en_GB", "20.1"), ("zh_CN", "20.1"),
+            ("zh_TW", "20.1"), ("ja_JP", "20.1"), ("fr_FR", "20,1"),
+            ("de_DE", "20,1"), ("es_ES", "20,1")
+        ]
+        for (identifier, number) in expected {
+            let result = PublicWeather.formattedTemperature(20.123456, locale: Locale(identifier: identifier))
+            XCTAssertTrue(result.contains(number), "\(identifier): \(result)")
+            XCTAssertFalse(result.contains("123456"))
+        }
+        XCTAssertTrue(PublicWeather.formattedTemperature(20, locale: Locale(identifier: "zh_CN")).contains("20.0"))
+        XCTAssertTrue(PublicWeather.formattedTemperature(-3.456, locale: Locale(identifier: "zh_CN")).contains("-3.5"))
+    }
     @MainActor func testHEICOrientationCatalogAndPixelLimits() throws {
         let format = UIGraphicsImageRendererFormat(); format.scale = 1
         let fixture = UIGraphicsImageRenderer(size: CGSize(width: 1024, height: 2048), format: format).image { context in

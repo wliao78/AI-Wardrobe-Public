@@ -1,6 +1,34 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "heightFeetInches": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Height (ft/in)"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"身高（英尺／英寸）"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"身高（英尺／英吋）"}},"ja":{"stringUnit":{"state":"translated","value":"身長（ft/in）"}},"fr":{"stringUnit":{"state":"translated","value":"Taille (ft/in)"}},"de":{"stringUnit":{"state":"translated","value":"Größe (ft/in)"}},"es":{"stringUnit":{"state":"translated","value":"Altura (ft/in)"}}}},
+    "weightPounds": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Weight (lb)"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"体重（磅）"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"體重（磅）"}},"ja":{"stringUnit":{"state":"translated","value":"体重（lb）"}},"fr":{"stringUnit":{"state":"translated","value":"Poids (lb)"}},"de":{"stringUnit":{"state":"translated","value":"Gewicht (lb)"}},"es":{"stringUnit":{"state":"translated","value":"Peso (lb)"}}}},
+    "weightStonePounds": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Weight (st/lb)"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"体重（英石／磅）"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"體重（英石／磅）"}},"ja":{"stringUnit":{"state":"translated","value":"体重（st/lb）"}},"fr":{"stringUnit":{"state":"translated","value":"Poids (st/lb)"}},"de":{"stringUnit":{"state":"translated","value":"Gewicht (st/lb)"}},"es":{"stringUnit":{"state":"translated","value":"Peso (st/lb)"}}}},
+    "qwenRegionNote": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Qwen keys are region-specific. Enter the matching base URL from your Model Studio console, including /compatible-mode/v1 and your workspace ID where required. The initial URL is for US Virginia."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"通义千问 Key 与地域绑定。请填写百炼控制台对应地域的基础地址，包含 /compatible-mode/v1，以及该地域要求的业务空间 ID。初始地址为美国弗吉尼亚地域。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"通義千問 Key 與地域綁定。請填寫百煉控制台對應地域的基礎位址，包含 /compatible-mode/v1，以及該地域要求的業務空間 ID。初始位址為美國維吉尼亞地域。"}},"ja":{"stringUnit":{"state":"translated","value":"Qwenのキーは地域ごとに異なります。Model Studioで確認した対応地域のベースURLを入力し、/compatible-mode/v1と必要なワークスペースIDを含めてください。初期URLは米国バージニア用です。"}},"fr":{"stringUnit":{"state":"translated","value":"Les clés Qwen sont liées à une région. Saisissez l’URL de base de votre console Model Studio, avec /compatible-mode/v1 et l’ID d’espace de travail si nécessaire. L’URL initiale correspond à la Virginie, aux États-Unis."}},"de":{"stringUnit":{"state":"translated","value":"Qwen-Schlüssel sind regional gebunden. Die passende Basis-URL aus Model Studio mit /compatible-mode/v1 und gegebenenfalls Workspace-ID eingeben. Die anfängliche URL gilt für Virginia, USA."}},"es":{"stringUnit":{"state":"translated","value":"Las claves Qwen dependen de la región. Introduce la URL base de Model Studio con /compatible-mode/v1 y el ID del espacio de trabajo cuando se requiera. La URL inicial corresponde a Virginia, EE. UU."}}}},
+    "providerSetup": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Provider setup guide"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"服务商配置指南"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"服務商設定指南"}},"ja":{"stringUnit":{"state":"translated","value":"サービス設定ガイド"}},"fr":{"stringUnit":{"state":"translated","value":"Guide de configuration"}},"de":{"stringUnit":{"state":"translated","value":"Einrichtungsanleitung"}},"es":{"stringUnit":{"state":"translated","value":"Guía de configuración"}}}},
+    "dismissKeyboard": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Dismiss keyboard"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"收起键盘"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"收起鍵盤"}},"ja":{"stringUnit":{"state":"translated","value":"キーボードを閉じる"}},"fr":{"stringUnit":{"state":"translated","value":"Masquer le clavier"}},"de":{"stringUnit":{"state":"translated","value":"Tastatur schließen"}},"es":{"stringUnit":{"state":"translated","value":"Ocultar teclado"}}}},
+    "selectedClothingCount": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Recommend only from %d selected items"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"仅从已选的 %d 件衣物中推荐"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"僅從已選的 %d 件衣物中推薦"}},"ja":{"stringUnit":{"state":"translated","value":"選択した%d点のみでコーデを提案"}},"fr":{"stringUnit":{"state":"translated","value":"Proposer avec les %d pièces sélectionnées"}},"de":{"stringUnit":{"state":"translated","value":"Nur die %d gewählten Teile verwenden"}},"es":{"stringUnit":{"state":"translated","value":"Recomendar con las %d prendas elegidas"}}}},
+    "tryOnStartNote": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Photograph a garment to preview an outfit. It is not saved to your closet automatically."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"在商店拍一件衣物，立即查看正面搭配示意。不会自动保存到衣橱。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"在商店拍一件衣物，立即查看正面搭配示意。不會自動儲存到衣櫥。"}},"ja":{"stringUnit":{"state":"translated","value":"服を撮影すると正面のコーデを確認できます。クローゼットには自動保存されません。"}},"fr":{"stringUnit":{"state":"translated","value":"Photographiez un vêtement pour voir une tenue. Il n’est pas ajouté automatiquement à la garde-robe."}},"de":{"stringUnit":{"state":"translated","value":"Fotografiere ein Kleidungsstück für eine Outfit-Vorschau. Es wird nicht automatisch gespeichert."}},"es":{"stringUnit":{"state":"translated","value":"Fotografía una prenda para ver un conjunto. No se guarda automáticamente en el armario."}}}},
+    "personPreview": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Person preview"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"人物预览"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"人物預覽"}},"ja":{"stringUnit":{"state":"translated","value":"人物プレビュー"}},"fr":{"stringUnit":{"state":"translated","value":"Aperçu de la personne"}},"de":{"stringUnit":{"state":"translated","value":"Personenvorschau"}},"es":{"stringUnit":{"state":"translated","value":"Vista de la persona"}}}},
+    "poseInstruction": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Keep your full body in frame, with even lighting and a natural stance."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"全身完整入镜，光线均匀，自然站立。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"全身完整入鏡，光線均勻，自然站立。"}},"ja":{"stringUnit":{"state":"translated","value":"全身をフレームに入れ、均一な光で自然に立ってください。"}},"fr":{"stringUnit":{"state":"translated","value":"Cadrez le corps entier, avec une lumière uniforme et une posture naturelle."}},"de":{"stringUnit":{"state":"translated","value":"Den ganzen Körper bei gleichmäßigem Licht und natürlicher Haltung aufnehmen."}},"es":{"stringUnit":{"state":"translated","value":"Incluye todo el cuerpo, con luz uniforme y postura natural."}}}},
+    "dataAndPrivacy": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Data and privacy"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"数据与隐私"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"資料與隱私"}},"ja":{"stringUnit":{"state":"translated","value":"データとプライバシー"}},"fr":{"stringUnit":{"state":"translated","value":"Données et confidentialité"}},"de":{"stringUnit":{"state":"translated","value":"Daten und Datenschutz"}},"es":{"stringUnit":{"state":"translated","value":"Datos y privacidad"}}}},
+    "emptyFavorites": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"No saved outfits yet"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"还没有收藏搭配"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"還沒有收藏搭配"}},"ja":{"stringUnit":{"state":"translated","value":"保存したコーデはありません"}},"fr":{"stringUnit":{"state":"translated","value":"Aucune tenue enregistrée"}},"de":{"stringUnit":{"state":"translated","value":"Noch keine gespeicherten Outfits"}},"es":{"stringUnit":{"state":"translated","value":"Aún no hay conjuntos guardados"}}}},
+    "favoriteHelp": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Tap the heart on Today to save an outfit."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"在今日推荐中点心形按钮保存。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"在今日推薦中點心形按鈕儲存。"}},"ja":{"stringUnit":{"state":"translated","value":"今日のハートをタップして保存できます。"}},"fr":{"stringUnit":{"state":"translated","value":"Touchez le cœur dans Aujourd’hui pour enregistrer une tenue."}},"de":{"stringUnit":{"state":"translated","value":"Tippe unter Heute auf das Herz, um ein Outfit zu speichern."}},"es":{"stringUnit":{"state":"translated","value":"Toca el corazón en Hoy para guardar un conjunto."}}}},
+    "selectRecommendation": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Select for outfits"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"选择推荐"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"選擇推薦"}},"ja":{"stringUnit":{"state":"translated","value":"コーデ用に選択"}},"fr":{"stringUnit":{"state":"translated","value":"Choisir les pièces"}},"de":{"stringUnit":{"state":"translated","value":"Für Outfits wählen"}},"es":{"stringUnit":{"state":"translated","value":"Elegir prendas"}}}},
+    "finishSelection": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Done selecting"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"完成选择"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"完成選擇"}},"ja":{"stringUnit":{"state":"translated","value":"選択完了"}},"fr":{"stringUnit":{"state":"translated","value":"Terminer"}},"de":{"stringUnit":{"state":"translated","value":"Auswahl fertig"}},"es":{"stringUnit":{"state":"translated","value":"Terminar"}}}},
+    "restoreAll": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Restore all"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"恢复全部"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"恢復全部"}},"ja":{"stringUnit":{"state":"translated","value":"すべて戻す"}},"fr":{"stringUnit":{"state":"translated","value":"Tout rétablir"}},"de":{"stringUnit":{"state":"translated","value":"Alle verwenden"}},"es":{"stringUnit":{"state":"translated","value":"Restaurar todo"}}}},
+    "allItems": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"All"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"全部"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"全部"}},"ja":{"stringUnit":{"state":"translated","value":"すべて"}},"fr":{"stringUnit":{"state":"translated","value":"Toutes"}},"de":{"stringUnit":{"state":"translated","value":"Alle"}},"es":{"stringUnit":{"state":"translated","value":"Todas"}}}},
+    "styleFormal": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Formal"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"正式"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"正式"}},"ja":{"stringUnit":{"state":"translated","value":"フォーマル"}},"fr":{"stringUnit":{"state":"translated","value":"Habillé"}},"de":{"stringUnit":{"state":"translated","value":"Formell"}},"es":{"stringUnit":{"state":"translated","value":"Formal"}}}},
+    "styleCasual": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Casual"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"休闲"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"休閒"}},"ja":{"stringUnit":{"state":"translated","value":"カジュアル"}},"fr":{"stringUnit":{"state":"translated","value":"Décontracté"}},"de":{"stringUnit":{"state":"translated","value":"Freizeit"}},"es":{"stringUnit":{"state":"translated","value":"Informal"}}}},
+    "localOutfitPreview": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Local outfit sketch · visual reference only"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"本机换装示意 · 仅供参考"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"本機換裝示意 · 僅供參考"}},"ja":{"stringUnit":{"state":"translated","value":"端末内の着せ替え概略・参考のみ"}},"fr":{"stringUnit":{"state":"translated","value":"Aperçu local · indication visuelle"}},"de":{"stringUnit":{"state":"translated","value":"Lokale Vorschau · nur visuelle Orientierung"}},"es":{"stringUnit":{"state":"translated","value":"Vista local · solo referencia visual"}}}},
+    "outfitConversation": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Outfit conversation"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"搭配对话"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"搭配對話"}},"ja":{"stringUnit":{"state":"translated","value":"コーデの会話"}},"fr":{"stringUnit":{"state":"translated","value":"Discussion de tenues"}},"de":{"stringUnit":{"state":"translated","value":"Outfit-Gespräch"}},"es":{"stringUnit":{"state":"translated","value":"Conversación de conjuntos"}}}},
+    "collapseConversation": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Collapse conversation"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"收起搭配对话"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"收起搭配對話"}},"ja":{"stringUnit":{"state":"translated","value":"会話を閉じる"}},"fr":{"stringUnit":{"state":"translated","value":"Réduire la discussion"}},"de":{"stringUnit":{"state":"translated","value":"Gespräch einklappen"}},"es":{"stringUnit":{"state":"translated","value":"Contraer conversación"}}}},
+    "basicDetails": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Basic details"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"基本资料"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"基本資料"}},"ja":{"stringUnit":{"state":"translated","value":"基本情報"}},"fr":{"stringUnit":{"state":"translated","value":"Informations de base"}},"de":{"stringUnit":{"state":"translated","value":"Grunddaten"}},"es":{"stringUnit":{"state":"translated","value":"Datos básicos"}}}},
+    "heightCM": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Height (cm)"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"身高（cm）"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"身高（cm）"}},"ja":{"stringUnit":{"state":"translated","value":"身長（cm）"}},"fr":{"stringUnit":{"state":"translated","value":"Taille (cm)"}},"de":{"stringUnit":{"state":"translated","value":"Größe (cm)"}},"es":{"stringUnit":{"state":"translated","value":"Altura (cm)"}}}},
+    "weightKG": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Weight (kg)"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"体重（kg）"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"體重（kg）"}},"ja":{"stringUnit":{"state":"translated","value":"体重（kg）"}},"fr":{"stringUnit":{"state":"translated","value":"Poids (kg)"}},"de":{"stringUnit":{"state":"translated","value":"Gewicht (kg)"}},"es":{"stringUnit":{"state":"translated","value":"Peso (kg)"}}}},
+    "saveDetails": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Save details"}},"zh-Hans":{"stringUnit":{"state":"translated","value":"保存资料"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"儲存資料"}},"ja":{"stringUnit":{"state":"translated","value":"情報を保存"}},"fr":{"stringUnit":{"state":"translated","value":"Enregistrer"}},"de":{"stringUnit":{"state":"translated","value":"Angaben speichern"}},"es":{"stringUnit":{"state":"translated","value":"Guardar datos"}}}},
+    "invalidMeasurements": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Enter a valid height and weight, or leave them empty."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"请输入有效的身高、体重，或留空。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"請輸入有效的身高、體重，或留空。"}},"ja":{"stringUnit":{"state":"translated","value":"有効な身長・体重を入力するか、空欄にしてください。"}},"fr":{"stringUnit":{"state":"translated","value":"Saisissez une taille et un poids valides, ou laissez les champs vides."}},"de":{"stringUnit":{"state":"translated","value":"Gültige Größe und Gewicht eingeben oder Felder leer lassen."}},"es":{"stringUnit":{"state":"translated","value":"Introduce altura y peso válidos o deja los campos vacíos."}}}},
+    "measurementsLocalOnly": {"extractionState":"manual","localizations":{"en":{"stringUnit":{"state":"translated","value":"Optional. Stored only on this iPhone; not sent to AI services. These values do not guarantee garment fit."}},"zh-Hans":{"stringUnit":{"state":"translated","value":"选填，仅保存在本机，不发送给AI服务；不保证衣物合身或尺码准确。"}},"zh-Hant":{"stringUnit":{"state":"translated","value":"選填，僅保存在本機，不傳送給AI服務；不保證衣物合身或尺碼準確。"}},"ja":{"stringUnit":{"state":"translated","value":"任意。端末内のみ保存され、AIサービスに送信しません。サイズやフィットは保証されません。"}},"fr":{"stringUnit":{"state":"translated","value":"Facultatif. Conservé sur cet iPhone, sans envoi aux services IA. Ne garantit pas la taille ni l’ajustement."}},"de":{"stringUnit":{"state":"translated","value":"Optional. Nur auf diesem iPhone gespeichert, nicht an KI-Dienste gesendet. Keine Passform- oder Größengarantie."}},"es":{"stringUnit":{"state":"translated","value":"Opcional. Solo se guarda en este iPhone, sin enviarse a servicios IA. No garantiza talla ni ajuste."}}}},
     "voiceInput": {
       "extractionState": "manual",
       "localizations": {
@@ -2639,43 +2667,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI images are visual approximations, not a fit or size guarantee. Until generated, the default model is shown."
+            "value": "Offline sketches and AI images are visual references, not guarantees of size or fit. Paid AI generation runs only when you tap AI image."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI效果图仅供参考，不保证实际合身或尺码。生成前显示默认模特。"
+            "value": "离线示意和 AI 效果图仅供搭配参考，不保证尺码或合身程度。只有点按“AI 图”才会请求付费生成。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI效果圖僅供參考，不保證實際合身或尺寸。產生前顯示預設模特。"
+            "value": "離線示意和 AI 效果圖僅供搭配參考，不保證尺寸或合身程度。只有點按「AI 圖」才會請求付費產生。"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI画像は参考イメージです。サイズやフィット感を保証しません。生成前は既定モデルを表示します。"
+            "value": "オフライン図とAI画像はコーデの参考で、サイズやフィットを保証しません。有料AI生成は「AI画像」をタップした場合のみ実行します。"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les images IA sont indicatives et ne garantissent pas la taille. Le mannequin par défaut apparaît avant la génération."
+            "value": "Les aperçus hors ligne et les images IA sont indicatifs, sans garantie de taille ni de coupe. La génération IA payante nécessite un appui sur Image IA."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "KI-Bilder sind unverbindliche Ansichten ohne Größen- oder Passformgarantie. Bis zur Erstellung erscheint das Standardmodell."
+            "value": "Offline-Vorschauen und KI-Bilder dienen nur zur Orientierung, ohne Größen- oder Passformgarantie. Kostenpflichtige KI-Bilder entstehen nur durch Tippen auf KI-Bild."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las imágenes IA son orientativas y no garantizan talla ni ajuste. Antes de generarlas se muestra el modelo predeterminado."
+            "value": "Las vistas sin conexión y las imágenes IA son orientativas; no garantizan talla ni ajuste. La generación IA de pago solo se inicia al tocar Imagen IA."
           }
         }
       }
@@ -2874,43 +2902,43 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Model"
+            "value": "Gender"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "模特"
+            "value": "性别"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "模特"
+            "value": "性別"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "モデル"
+            "value": "性別"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mannequin"
+            "value": "Genre"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modell"
+            "value": "Geschlecht"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modelo"
+            "value": "Género"
           }
         }
       }

@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-03",
+  "validation": "Official documentation and isolated request/response fixtures only. No paid live provider request has been verified; user declined testing credentials.",
+  "providers": [
+    {"name":"OpenAI","textModel":"gpt-4.1-mini","imageModel":"gpt-image-2.5-flare","sources":["https://developers.openai.com/api/docs/models/gpt-4.1-mini","https://developers.openai.com/api/docs/guides/image-generation"],"note":"Image model access may require organization verification and a paid API account."},
+    {"name":"Google Gemini","textModel":"gemini-3.8-flash","imageModel":"gemini-3.1-flash-image","sources":["https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash","https://ai.google.dev/gemini-api/docs/image-generation","https://ai.google.dev/gemini-api/docs/deprecations"],"note":"The previous 2.5 text default is access-limited for new accounts. The image request asks for portrait 2:3 output."},
+    {"name":"Anthropic Claude","textModel":"claude-sonnet-5-5","sources":["https://platform.claude.com/docs/en/models/overview","https://platform.claude.com/docs/en/about-claude/model-deprecations"],"note":"Text only in this app. Do not automatically overwrite an existing user's saved model."},
+    {"name":"DeepSeek","textModel":"deepseek-flash","sources":["https://api-docs.deepseek.com/"],"note":"Chat-completions endpoint and model verified against official quick start. Text only in this app; vision input is not image generation."},
+    {"name":"Alibaba Qwen","textModel":"qwen-plus","initialBaseURL":"https://dashscope-us.aliyuncs.com/compatible-mode/v1","sources":["https://www.alibabacloud.com/help/en/model-studio/compatibility-of-openai-with-dashscope"],"note":"Key must match endpoint region. User can enter China or other regional/workspace base URLs. No workspace ID is invented or bundled."},
+    {"name":"Custom OpenAI-compatible","sources":[],"note":"User supplies HTTPS endpoint, model and Key; explicit endpoint-specific consent is required. Provider compatibility cannot be guaranteed."}
+  ]
+}

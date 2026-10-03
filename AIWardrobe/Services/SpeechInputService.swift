@@ -88,6 +88,7 @@ final class SpeechInputService {
 
 @MainActor
 final class AppleSpeechInputBackend: SpeechInputBackend {
+    private var recognizer: SFSpeechRecognizer?
     private var engine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
@@ -113,7 +114,8 @@ final class AppleSpeechInputBackend: SpeechInputBackend {
     func start(locale: Locale, receive: @escaping @MainActor (String?, Bool, Bool) -> Void) async throws {
         stop()
         let token = generation
-        guard let recognizer = SFSpeechRecognizer(locale: locale) else { throw SpeechInputFailure.unavailable }
+        guard let recognizer = SFSpeechRecognizer(locale: locale), recognizer.isAvailable else { throw SpeechInputFailure.unavailable }
+        self.recognizer = recognizer
         do {
             sessionPendingOrActive = true
             try await SpeechAudioSession.activate()
@@ -167,7 +169,7 @@ final class AppleSpeechInputBackend: SpeechInputBackend {
         if let interruption { NotificationCenter.default.removeObserver(interruption); self.interruption = nil }
         engine?.stop()
         if tapInstalled { engine?.inputNode.removeTap(onBus: 0); tapInstalled = false }
-        request?.endAudio(); task?.cancel(); task = nil; request = nil; engine = nil
+        request?.endAudio(); task?.cancel(); task = nil; request = nil; engine = nil; recognizer = nil
         if shouldDeactivate { SpeechAudioSession.deactivate() }
     }
 }

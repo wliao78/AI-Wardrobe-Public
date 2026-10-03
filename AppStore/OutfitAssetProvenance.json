@@ -1,0 +1,181 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-10-02",
+  "purpose": "Fictional public-edition regional model outfit references",
+  "prompts": {
+    "office": "Use case: identity-preserve. Asset type: bundled offline wardrobe outfit preview, one paired male/female studio photograph. Image 1 is the edit target; Image 2 is clothing reference only. Change ONLY the clothing on BOTH fictional adult people in Image 1: dress each in the white long-sleeve Oxford shirt, charcoal straight trousers, and brown leather penny loafers shown in Image 2. Shirts naturally untucked, hems at upper hip. Render the shoes properly WORN on their feet from the existing frontal camera view, not top-down floating product images. Preserve exact faces, hair, body shape, skin, neutral arms-down pose, hand and foot positions, head position, scale, soft light gray studio background and framing from Image 1. Keep man centered at 25% image width and woman at 75%; both complete heads and feet visible. Photorealistic fabric drape, natural anatomy and shadows. No layout, text, logos, garment collage, extra person, or accessories. Keep same paired landscape aspect ratio as Image 1.",
+    "weekend": "Use case: identity-preserve. Asset type: bundled offline wardrobe preview, one paired male/female studio photograph. Image 1 is the edit target; Image 2 is clothing reference only. Change ONLY clothing on BOTH fictional adult people in Image 1 to navy short-sleeve polo, beige straight chinos, white low-top sneakers, matching Image 2. Tops untucked to upper hip. Shoes correctly worn in frontal perspective. Preserve EXACT faces, hair, skin, body shape, neutral arms-down pose, hands and feet positions, subject scale and light gray studio background, camera and landscape framing of Image 1. Man at 25% width, woman at 75%, full heads and feet visible. Photorealistic natural fabric drape. No collage, floating shoes, text, logos, accessories, or extra people.",
+    "outdoor": "Use case: identity-preserve. Asset type: bundled offline wardrobe preview, one paired male/female studio photograph. Image 1 is the edit target; Image 2 is clothing reference only. Change ONLY clothing on BOTH fictional adult people in Image 1 to gray short-sleeve performance T-shirt, black straight hiking pants, gray hiking shoes. Do NOT include the navy jacket in this variant, matching Image 2. Tops untucked to upper hip. Shoes correctly worn in frontal perspective. Preserve EXACT faces, hair, skin, body shape, neutral arms-down pose, hands and feet positions, subject scale and light gray studio background, camera and landscape framing of Image 1. Man at 25% width, woman at 75%, full heads and feet visible. Photorealistic natural fabric drape. No collage, floating shoes, text, logos, accessories, or extra people.",
+    "jacket": "Use case: identity-preserve. Asset type: bundled offline wardrobe preview, one paired male/female studio photograph. Image 1 is the edit target; Image 2 is clothing reference only. Change ONLY clothing on BOTH fictional adult people in Image 1 to navy hooded jacket worn unzipped over gray performance T-shirt, black straight hiking pants, gray hiking shoes. Keep jacket fully open down the center so the gray shirt is clearly visible, hood down, matching Image 2. Tops untucked to upper hip. Shoes correctly worn in frontal perspective. Preserve EXACT faces, hair, skin, body shape, neutral arms-down pose, hands and feet positions, subject scale and light gray studio background, camera and landscape framing of Image 1. Man at 25% width, woman at 75%, full heads and feet visible. Photorealistic natural fabric drape. No collage, floating shoes, text, logos, accessories, or extra people."
+  },
+  "assets": [
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-us-office.imageset/worn-us-office.png",
+      "prompt": "office",
+      "identityReference": "models-us.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-us-weekend.imageset/worn-us-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-us.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-us-outdoor.imageset/worn-us-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-us.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-us-jacket.imageset/worn-us-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-us.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-cn-office.imageset/worn-cn-office.png",
+      "prompt": "office",
+      "identityReference": "models-cn.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-cn-weekend.imageset/worn-cn-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-cn.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-cn-outdoor.imageset/worn-cn-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-cn.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-cn-jacket.imageset/worn-cn-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-cn.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-jp-office.imageset/worn-jp-office.png",
+      "prompt": "office",
+      "identityReference": "models-jp.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-jp-weekend.imageset/worn-jp-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-jp.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-jp-outdoor.imageset/worn-jp-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-jp.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-jp-jacket.imageset/worn-jp-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-jp.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-gb-office.imageset/worn-gb-office.png",
+      "prompt": "office",
+      "identityReference": "models-gb.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-gb-weekend.imageset/worn-gb-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-gb.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-gb-outdoor.imageset/worn-gb-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-gb.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-gb-jacket.imageset/worn-gb-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-gb.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-fr-office.imageset/worn-fr-office.png",
+      "prompt": "office",
+      "identityReference": "models-fr.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-fr-weekend.imageset/worn-fr-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-fr.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-fr-outdoor.imageset/worn-fr-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-fr.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-fr-jacket.imageset/worn-fr-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-fr.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-de-office.imageset/worn-de-office.png",
+      "prompt": "office",
+      "identityReference": "models-de.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-de-weekend.imageset/worn-de-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-de.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-de-outdoor.imageset/worn-de-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-de.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-de-jacket.imageset/worn-de-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-de.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-es-office.imageset/worn-es-office.png",
+      "prompt": "office",
+      "identityReference": "models-es.png",
+      "garmentReference": "demo-office.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-es-weekend.imageset/worn-es-weekend.png",
+      "prompt": "weekend",
+      "identityReference": "models-es.png",
+      "garmentReference": "demo-weekend.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-es-outdoor.imageset/worn-es-outdoor.png",
+      "prompt": "outdoor",
+      "identityReference": "models-es.png",
+      "garmentReference": "demo-outdoor.png"
+    },
+    {
+      "file": "AIWardrobe/Resources/PublicAssets.xcassets/worn-es-jacket.imageset/worn-es-jacket.png",
+      "prompt": "jacket",
+      "identityReference": "models-es.png",
+      "garmentReference": "demo-outdoor.png"
+    }
+  ]
+}

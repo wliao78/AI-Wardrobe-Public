@@ -4,45 +4,112 @@ struct ProfileView: View {
     @Environment(WardrobeStore.self) private var store
     @State private var erase = false
     @State private var removePhotos = false
+    @State private var height = ""
+    @State private var heightInches = ""
+    @State private var weight = ""
+    @State private var weightPounds = ""
+    @State private var selectedPose: String?
+    private enum MeasurementField: Hashable { case height, inches, weight, pounds }
+    @FocusState private var measurementFocus: MeasurementField?
+    @Environment(\.locale) private var interfaceLocale
+    private var locale: Locale { .current }
+    private var units: BodyMeasurementUnits { BodyMeasurementUnits(locale: locale) }
     var body: some View {
         @Bindable var store = store
         Form {
-            Section {
-                HStack {
-                    PhotoView(image: store.avatar).frame(width: 90, height: 130)
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text(L(store.usesDefaultAvatar ? "defaultModel" : "personalModel")).font(.caption).foregroundStyle(.secondary)
-                        Text(L("publicEdition")).font(.caption2).foregroundStyle(.secondary)
-                    }
-                }
+            Section(L("basicDetails")) {
                 Picker(L("gender"), selection: $store.data.gender) {
                     Text(L("male")).tag("male"); Text(L("female")).tag("female")
                 }.onChange(of: store.data.gender) { _, _ in store.save() }
+                HStack {
+                    Text(L(units.heightLabel))
+                    Spacer(minLength: 8)
+                    HStack(spacing: 4) {
+                        TextField(units.imperialHeight ? "—" : "175", text: $height)
+                            .keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled().textInputAutocapitalization(.never).focused($measurementFocus, equals: .height)
+                            .frame(width: units.imperialHeight ? 40 : 100).accessibilityIdentifier("profile.height")
+                            .accessibilityLabel(L(units.heightLabel) + (units.imperialHeight ? " ft" : ""))
+                        if units.imperialHeight {
+                            Text("ft").font(.caption).foregroundStyle(.secondary)
+                            TextField("—", text: $heightInches).keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+                                .autocorrectionDisabled().textInputAutocapitalization(.never).focused($measurementFocus, equals: .inches)
+                                .frame(width: 48).accessibilityIdentifier("profile.heightInches").accessibilityLabel(L(units.heightLabel) + " in")
+                            Text("in").font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                HStack {
+                    Text(L(units.weightLabel))
+                    Spacer(minLength: 8)
+                    HStack(spacing: 4) {
+                        TextField(units == .metric ? "70" : units == .uk ? "—" : "155", text: $weight)
+                            .keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled().textInputAutocapitalization(.never).focused($measurementFocus, equals: .weight)
+                            .frame(width: units == .uk ? 40 : 100).accessibilityIdentifier("profile.weight").accessibilityLabel(L(units.weightLabel))
+                        if units == .uk {
+                            Text("st").font(.caption).foregroundStyle(.secondary)
+                            TextField("—", text: $weightPounds).keyboardType(.decimalPad).multilineTextAlignment(.trailing)
+                                .autocorrectionDisabled().textInputAutocapitalization(.never).focused($measurementFocus, equals: .pounds)
+                                .frame(width: 48).accessibilityIdentifier("profile.weightPounds").accessibilityLabel(L(units.weightLabel) + " lb")
+                            Text("lb").font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                Button(L("saveDetails")) {
+                    let heightEmpty = height.isEmpty && (!units.imperialHeight || heightInches.isEmpty)
+                    let weightEmpty = weight.isEmpty && (units != .uk || weightPounds.isEmpty)
+                    let newHeight = heightEmpty ? nil : units.heightCM(height, secondary: heightInches, locale: locale)
+                    let newWeight = weightEmpty ? nil : units.weightKG(weight, secondary: weightPounds, locale: locale)
+                    guard (heightEmpty || newHeight.map { $0 > 0 && $0 < 300 } == true),
+                          (weightEmpty || newWeight.map { $0 > 0 && $0 < 700 } == true) else {
+                        store.error = L("invalidMeasurements"); return
+                    }
+                    // Preserve exact stored measurements when merely saving
+                    // their rounded display in another unit system.
+                    let oldHeight = units.heightFields(store.data.heightCM, locale: locale)
+                    let oldWeight = units.weightFields(store.data.weightKG, locale: locale)
+                    if height != oldHeight.main || heightInches != oldHeight.secondary { store.data.heightCM = newHeight }
+                    if weight != oldWeight.main || weightPounds != oldWeight.secondary { store.data.weightKG = newWeight }
+                    store.save()
+                    measurementFocus = nil
+                    #if DEBUG
+                    if ProcessInfo.processInfo.arguments.contains("-ui-testing") {
+                        print("QA synthetic measurements: \(units), \(locale.identifier), input=\(height)/\(heightInches)/\(weight)/\(weightPounds), cm=\(String(describing: store.data.heightCM)), kg=\(String(describing: store.data.weightKG))")
+                    }
+                    #endif
+                }.accessibilityIdentifier("profile.saveDetails")
+                Text(L("measurementsLocalOnly")).font(.caption).foregroundStyle(.secondary)
+                    .accessibilityIdentifier("profile.measurementSystem").accessibilityValue("\(units)")
+            }
+            Section(L("personPreview")) {
+                Text(L("bodyPhotoNote")).font(.subheadline).foregroundStyle(.secondary)
                 Picker(L("modelRegion"), selection: $store.data.modelRegion) {
                     ForEach(LocalizedModels.regions, id: \.self) { Text(L("region-\($0)")).tag($0) }
                 }.onChange(of: store.data.modelRegion) { _, _ in store.save() }
                 Text(L("localeNote")).font(.caption).foregroundStyle(.secondary)
             }
             Section(L("bodyPhotos")) {
-                Text(L("bodyPhotoNote")).font(.caption).foregroundStyle(.secondary)
                 ForEach(["front", "left", "right", "back"], id: \.self) { pose in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(L(pose))
-                            Spacer()
-                            if let photo = store.data.bodyPhotos[pose] {
-                                PhotoView(image: UIImage(data: photo)).frame(width: 44, height: 66)
-                                Button(role: .destructive) { store.data.bodyPhotos.removeValue(forKey: pose); store.save() } label: { Image(systemName: "trash") }.accessibilityLabel(L("delete"))
+                    Button { selectedPose = pose } label: {
+                        HStack(spacing: 14) {
+                            Group {
+                                if let photo = store.data.bodyPhotos[pose], let image = UIImage(data: photo) {
+                                    Image(uiImage: image).resizable().scaledToFill()
+                                } else { Image(systemName: "person.crop.rectangle").foregroundStyle(.indigo) }
+                            }.frame(width: 58, height: 72).background(.indigo.opacity(0.08)).clipShape(RoundedRectangle(cornerRadius: 10))
+                            VStack(alignment: .leading) {
+                                Text(L(pose)).font(.headline)
+                                Text(L("poseInstruction")).font(.caption).foregroundStyle(.secondary)
                             }
+                            Spacer()
+                            Image(systemName: store.data.bodyPhotos[pose] == nil ? "chevron.right" : "checkmark.circle.fill").foregroundStyle(.indigo)
                         }
-                        PhotoInput { data in
-                            if let jpeg = ImageUtilities.compressedJPEG(from: data, maxDimension: 1536) { store.data.bodyPhotos[pose] = jpeg; store.save() }
-                        }
-                    }
+                    }.foregroundStyle(.primary).accessibilityIdentifier("profile.photo." + pose)
                 }
                 Button(L("removeBodyPhotos"), role: .destructive) { removePhotos = true }
             }
-            Section {
+            Section(L("dataAndPrivacy")) {
                 NavigationLink(L("aiSettings")) { AISettingsView() }.accessibilityIdentifier("profile.aiSettings")
                 NavigationLink(L("savedLooks")) { SavedLooksView() }.accessibilityIdentifier("profile.savedLooks")
                 Button(L("restoreDemo")) { store.addDemo() }
@@ -56,6 +123,13 @@ struct ProfileView: View {
             }
         }
         .navigationTitle("").navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: Binding(get: { selectedPose != nil }, set: { if !$0 { selectedPose = nil } })) {
+            if let pose = selectedPose { BodyPhotoEditor(pose: pose) }
+        }
+        .onAppear { loadMeasurements() }
+        .onChange(of: interfaceLocale) { _, _ in loadMeasurements() }
+        .onChange(of: units) { _, _ in loadMeasurements() }
+        .onChange(of: store.epoch) { _, _ in height = ""; heightInches = ""; weight = ""; weightPounds = "" }
         .confirmationDialog(L("deleteAll"), isPresented: $erase, titleVisibility: .visible) {
             Button(L("deleteAll"), role: .destructive) { store.erase() }.accessibilityIdentifier("profile.confirmErase")
         } message: { Text(L("deleteAllWarning")) }
@@ -63,27 +137,76 @@ struct ProfileView: View {
             Button(L("delete"), role: .destructive) { store.data.bodyPhotos = [:]; store.save() }
         }
     }
+    private func loadMeasurements() {
+        let h = units.heightFields(store.data.heightCM, locale: locale)
+        let w = units.weightFields(store.data.weightKG, locale: locale)
+        height = h.main; heightInches = h.secondary; weight = w.main; weightPounds = w.secondary
+    }
+}
+
+private struct BodyPhotoEditor: View {
+    @Environment(WardrobeStore.self) private var store
+    @Environment(\.dismiss) private var dismiss
+    let pose: String
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 18) {
+                    PhotoView(image: store.data.bodyPhotos[pose].flatMap(UIImage.init(data:)))
+                        .frame(height: 400).background(.indigo.opacity(0.08), in: RoundedRectangle(cornerRadius: 18))
+                    Text(L("poseInstruction")).font(.title3.bold()).multilineTextAlignment(.center)
+                    Text(L("bodyPhotoNote")).font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.center)
+                    PhotoInput(prominent: true) { data in
+                        if let photo = ImageUtilities.compressedJPEG(from: data, maxDimension: 1536) {
+                            store.data.bodyPhotos[pose] = photo; store.save(); dismiss()
+                        }
+                    }
+                    if store.data.bodyPhotos[pose] != nil {
+                        Button(L("delete"), role: .destructive) { store.data.bodyPhotos.removeValue(forKey: pose); store.save(); dismiss() }
+                    }
+                }.padding(16)
+            }.navigationTitle(L(pose)).navigationBarTitleDisplayMode(.inline)
+                .toolbar { Button(L("done")) { dismiss() }.accessibilityIdentifier("bodyPhoto.close") }
+        }
+    }
 }
 
 struct SavedLooksView: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(WardrobeStore.self) private var store
     @State private var selected: Look?
+    private func image(for look: Look) -> UIImage? {
+        look.image.flatMap(UIImage.init(data:)) ?? OfflineOutfitPreview.image(garments: store.data.garments.filter { look.items.contains($0.id) }, store: store)
+    }
     var body: some View {
         List {
+            if store.data.looks.filter(\.saved).isEmpty {
+                ContentUnavailableView(L("emptyFavorites"), systemImage: "heart", description: Text(L("favoriteHelp")))
+            }
             ForEach(store.data.looks.filter(\.saved)) { look in
                 Button { selected = look } label: {
-                    HStack {
-                        PhotoView(image: look.image.flatMap(UIImage.init(data:)) ?? look.demoAsset.flatMap(UIImage.init(named:))).frame(width: 70, height: 90)
-                        Text(look.displayTitle)
-                    }
-                }
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(look.displayTitle).font(.headline)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(store.data.garments.filter { look.items.contains($0.id) }) { garment in
+                                    VStack {
+                                        PhotoView(image: garment.image).frame(width: 68, height: 68)
+                                        Text(garment.displayName).font(.caption2).lineLimit(1).frame(width: 68)
+                                    }
+                                }
+                            }
+                        }
+                    }.padding(.vertical, 5).foregroundStyle(.primary)
+                }.buttonStyle(.plain)
                 .swipeActions { Button(L("delete"), role: .destructive) {
                     if let i = store.data.looks.firstIndex(where: { $0.id == look.id }) { store.data.looks[i].saved = false; store.save() }
                 } }
             }
         }.navigationTitle(L("savedLooks")).navigationBarTitleDisplayMode(.inline)
+            .toolbar { Button(L("done")) { dismiss() }.accessibilityIdentifier("savedLooks.close") }
             .sheet(item: $selected) { look in
-                if let image = look.image.flatMap(UIImage.init(data:)) ?? look.demoAsset.flatMap(UIImage.init(named:)) { FullPhoto(image: image) }
+                if let image = image(for: look) { FullPhoto(image: image) }
                 else { Text(look.displayTitle).padding() }
             }
     }
@@ -107,15 +230,20 @@ struct AISettingsView: View {
                     key = KeyVault.read(provider)
                 }
                 SecureField("API Key", text: $key).textInputAutocapitalization(.never).autocorrectionDisabled().accessibilityIdentifier("ai.key")
-                TextField(L("model"), text: $configuration.model).textInputAutocapitalization(.never).autocorrectionDisabled()
+                TextField(L("model"), text: $configuration.model).textInputAutocapitalization(.never).autocorrectionDisabled().accessibilityIdentifier("ai.model")
                 if configuration.provider == .custom || configuration.provider == .qwen {
                     TextField("https://…/v1", text: $configuration.endpoint).textInputAutocapitalization(.never).autocorrectionDisabled().keyboardType(.URL)
+                        .accessibilityIdentifier("ai.endpoint")
                         .onChange(of: configuration.endpoint) { _, _ in configuration.textConsent = false; configuration.photoConsent = false }
+                    if configuration.provider == .qwen {
+                        Text(L("qwenRegionNote")).font(.caption).foregroundStyle(.secondary)
+                        Link(L("providerSetup"), destination: URL(string: "https://www.alibabacloud.com/help/en/model-studio/compatibility-of-openai-with-dashscope")!)
+                    }
                 } else { Text(configuration.endpoint).font(.caption).foregroundStyle(.secondary).textSelection(.enabled) }
                 if configuration.provider.supportsImages {
                     TextField(L("imageModel"), text: $configuration.imageModel).textInputAutocapitalization(.never).autocorrectionDisabled().accessibilityIdentifier("ai.imageModel")
                 } else { Text(L("imageUnsupported")).font(.caption).foregroundStyle(.secondary) }
-                Button(L("testConnection")) { Task { await test() } }.disabled(testing || key.isEmpty)
+                Button(L("testConnection")) { Task { await test() } }.disabled(testing || key.isEmpty).accessibilityIdentifier("ai.testConnection")
                 if testing { ProgressView() }
                 Text(L("apiCostNote")).font(.caption).foregroundStyle(.secondary)
             }
@@ -132,15 +260,15 @@ struct AISettingsView: View {
                 Text(L("revokeNote")).font(.caption).foregroundStyle(.secondary)
             }
             Section {
-                Button(L("save")) { save() }
+                Button(L("save")) { save() }.accessibilityIdentifier("ai.save")
                 Button(L("revokeConsent"), role: .destructive) {
                     configuration.textConsent = false; configuration.photoConsent = false; configuration.approvedEndpoint = ""; configuration.save()
                     message = L("consentRevoked")
-                }
+                }.accessibilityIdentifier("ai.revokeConsent")
                 Button(L("deleteKey"), role: .destructive) {
                     do { try KeyVault.save("", provider: configuration.provider); key = ""; configuration.textConsent = false; configuration.photoConsent = false; configuration.save() }
                     catch { message = error.localizedDescription }
-                }
+                }.accessibilityIdentifier("ai.deleteKey")
             }
         }.navigationTitle(L("aiSettings")).navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button(L("done")) { dismiss() } } }

@@ -7,3 +7,4 @@ DerivedData/
 *.mobileprovision
 TestResults/
 .build/
+ReleaseCandidates/

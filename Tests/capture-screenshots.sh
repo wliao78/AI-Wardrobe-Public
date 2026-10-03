@@ -8,19 +8,30 @@ xcrun simctl install "$device" "$app"
 xcrun simctl ui "$device" appearance light
 xcrun simctl ui "$device" content_size large
 xcrun simctl status_bar "$device" override --time '9:41' --dataNetwork wifi --wifiMode active --wifiBars 3 --cellularMode active --cellularBars 4 --batteryState charged --batteryLevel 100
+trap 'xcrun simctl status_bar "$device" clear' EXIT
 for language in en zh-Hans zh-Hant ja fr de es; do
   case "$language" in
     en) region=en_US;; zh-Hans) region=zh_CN;; zh-Hant) region=zh_TW;;
     ja) region=ja_JP;; fr) region=fr_FR;; de) region=de_DE;; es) region=es_ES;;
   esac
+  metric=YES
+  if [ "$region" = en_US ]; then metric=NO; fi
   mkdir -p "AppStore/Screenshots/$language"
   for tab in $tabs; do
     xcrun simctl terminate "$device" com.tinyworm.AIWardrobe.Public 2>/dev/null || true
-    xcrun simctl launch "$device" com.tinyworm.AIWardrobe.Public -ui-testing -AppleLanguages "($language)" -AppleLocale "$region" -ui-tab "$tab"
+    xcrun simctl launch "$device" com.tinyworm.AIWardrobe.Public -ui-testing -AppleLanguages "($language)" -AppleLocale "$region" -AppleMetricUnits "$metric" -ui-tab "$tab"
     sleep 4
     xcrun simctl io "$device" screenshot "AppStore/Screenshots/$language/iphone-69-$tab.png"
     if [ "$(stat -f%z "AppStore/Screenshots/$language/iphone-69-$tab.png")" -lt 180000 ]; then
       sleep 5
+      xcrun simctl io "$device" screenshot "AppStore/Screenshots/$language/iphone-69-$tab.png"
+    fi
+    if [ "$(stat -f%z "AppStore/Screenshots/$language/iphone-69-$tab.png")" -le 180000 ]; then
+      # A simulator launch can remain on the blank launch screen. Restart only
+      # this disposable test app, never the shared simulator service or Xcode.
+      xcrun simctl terminate "$device" com.tinyworm.AIWardrobe.Public 2>/dev/null || true
+      xcrun simctl launch "$device" com.tinyworm.AIWardrobe.Public -ui-testing -AppleLanguages "($language)" -AppleLocale "$region" -AppleMetricUnits "$metric" -ui-tab "$tab"
+      sleep 10
       xcrun simctl io "$device" screenshot "AppStore/Screenshots/$language/iphone-69-$tab.png"
     fi
     test "$(stat -f%z "AppStore/Screenshots/$language/iphone-69-$tab.png")" -gt 180000

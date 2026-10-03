@@ -1,0 +1,156 @@
+{
+  "version": "1.0",
+  "build": 2,
+  "status": "User conditionally authorized formal release after problems are resolved. Candidate 75 local distribution export succeeded, installed on public-bundle iPhone, and four-region measurement regression passed. Candidate 74 hosted, UI and small-screen regressions passed; only numeric placeholders changed afterward. Renewed store login, Chinese name choice and physical acceptance remain pending; no final upload.",
+  "tests": [
+    {
+      "label": "compact",
+      "resultBundle": "AIWardrobe-Public-Compact-Languages-45.xcresult",
+      "result": "Passed",
+      "passed": 3,
+      "failed": 0,
+      "warnings": [],
+      "devices": [
+        {
+          "model": "iPhone 17e",
+          "os": "27.0"
+        }
+      ]
+    },
+    {
+      "label": "large",
+      "resultBundle": "AIWardrobe-Public-Final-Large-46.xcresult",
+      "result": "Passed",
+      "passed": 18,
+      "failed": 0,
+      "warnings": [],
+      "devices": [
+        {
+          "model": "iPhone 18 Pro Max",
+          "os": "27.0"
+        }
+      ]
+    },
+    {
+      "label": "voice",
+      "resultBundle": "AIWardrobe-Public-Final-Voice-47.xcresult",
+      "result": "Passed",
+      "passed": 1,
+      "failed": 0,
+      "warnings": [],
+      "devices": [
+        {
+          "model": "iPhone 16 Pro Max",
+          "os": "26.0"
+        }
+      ]
+    },
+    {
+      "label": "waistRegression",
+      "resultBundle": "AIWardrobe-Public-Waist-48.xcresult",
+      "result": "Passed",
+      "passed": 16,
+      "failed": 0,
+      "warnings": [],
+      "devices": [
+        {
+          "model": "iPhone 18 Pro Max",
+          "os": "27.0"
+        }
+      ]
+    },
+    {
+      "label": "finalRenderer",
+      "resultBundle": "AIWardrobe-Public-Waist-50.xcresult",
+      "result": "Passed",
+      "passed": 1,
+      "failed": 0,
+      "warnings": [],
+      "devices": [
+        {
+          "model": "iPhone 18 Pro Max",
+          "os": "27.0"
+        }
+      ]
+    }
+  ],
+  "offlineRenderedCombinations": 70,
+  "storeScreenshots": 28,
+  "languages": [
+    "en",
+    "zh-Hans",
+    "zh-Hant",
+    "ja",
+    "fr",
+    "de",
+    "es"
+  ],
+  "limitations": [
+    "No paid live AI API calls verified; user declined test credentials.",
+    "Offline compositing is approximate, not guaranteed fit; imported foreground extraction needs physical visual validation.",
+    "The reported donor-colored ankle cuff was corrected and representative target combinations visually checked; offline composition remains approximate, and not all 98 attached images have been individually accepted.",
+    "Build 2 not retested on user's physical iPhone; earlier build 1 physical speech, camera and weather were user-confirmed.",
+    "Simplified Chinese store name unresolved; German new name saved and reloaded successfully.",
+    "User conditionally authorized final binary upload, GitHub push and review submission after remaining problems are resolved. Renewed store login and Chinese name choice remain necessary."
+  ],
+  "shoeRendererFollowUp": {
+    "resultBundle": "AIWardrobe-Public-Shoe-74.xcresult",
+    "passed": 18,
+    "failed": 0,
+    "composedImages": 98,
+    "regression": "White Oxford/black hiking trousers/white sneakers, plus navy polo/charcoal trousers/white sneakers across seven model regions and both genders. Synthetic mask regression excludes beige donor cuffs while retaining sneakers.",
+    "visualInspection": "US male, CN female and DE male regression images inspected: obvious beige donor cuff and thin shoe-side stripes resolved. This is representative inspection, not all 98 visually accepted.",
+    "earlierIterations": "71 and 72 passed automated tests but visual inspection found shoe-side stripes; 73 reduced them but left an old shoe edge. These are not final visual passes.",
+    "archiveStatus": "Candidate 70 archive is stale. Candidate 74 Release archive and strict app signature verification succeeded. Command-line export failed twice with No Accounts / missing iOS Distribution certificate; Xcode GUI custom App Store Connect / Export successfully signed using the existing cloud-managed Apple Distribution certificate. No candidate 74 upload.",
+    "distributionExport": "ReleaseCandidates/candidate-74/AppStoreExport/AIWardrobe.ipa",
+    "distributionSHA256": "e030f183ed1b02061bc8496b1c57569c772f55a99ec4bc02ef85a7bc7768e6be",
+    "uiRegression": { "resultBundle": "AIWardrobe-Public-UI-Final-74.xcresult", "passed": 3, "failed": 0, "runtimeWarnings": [], "coverage": "Regional measurement persistence, private-baseline profile/conversation and full-width header/arrow collapse" }
+  },
+  "candidate75": {
+    "changeAfter74": "Empty ft/in and st/lb input hints no longer repeat the adjacent unit suffix; numeric conversion logic unchanged.",
+    "smallScreen": { "resultBundle": "AIWardrobe-Public-Small-74.xcresult", "passed": 1, "failed": 0, "coverage": "iPhone SE 3, iOS 26, dark/XXXL German navigation, favorites and conversation" },
+    "regionalMeasurementRegression": { "resultBundle": "AIWardrobe-Public-Small-75.xcresult", "passed": 1, "failed": 0, "coverage": "Four locale/unit combinations and persistence after final input-hint correction" },
+    "providerMockRegression": "Six text adapters, two image adapters, consent gates, endpoint validation, synthetic privacy and HTTP errors passed. No live paid requests.",
+    "archive": "ReleaseCandidates/candidate-75/AIWardrobe-Build2.xcarchive",
+    "archiveResult": "Release archive, strict app signature verification and local GUI distribution export succeeded. Installed on public-bundle iPhone. No upload or renewed physical acceptance.",
+    "screenshots": "All 28 recaptured from candidate 74; seven profile screenshots refreshed from candidate 75. Release verifier passed. First capture attempt rejected a blank Japanese launch frame, app-only relaunch recovered. Other three tabs have unchanged code between 74/75."
+  },
+  "layoutCorrection": {
+    "privateBaseline": "a3887b069a790a76e752d39d3683ee8cff806778",
+    "largeLayoutAndHEICImport": { "resultBundle": "AIWardrobe-Public-Private-Layout-Large-52.xcresult", "passed": 2, "failed": 0 },
+    "compactLayoutAndDeletion": { "resultBundle": "AIWardrobe-Public-Private-Layout-Compact-54.xcresult", "passed": 2, "failed": 0 },
+    "largeSevenLanguageAndHostedTests": {
+      "resultBundle": "AIWardrobe-Public-Private-Layout-Final-54.xcresult",
+      "passed": 17,
+      "failed": 1,
+      "failure": "iOS 27 English synthetic speech fixture returned kLSRErrorDomain 300; the other six language fixtures, 15 hosted regression tests and both UI tests passed. Do not describe the whole bundle as passing."
+    },
+    "speechCrossCheck": { "resultBundle": "AIWardrobe-Public-Layout-Speech-55.xcresult", "device": "iPhone 16 Pro Max / iOS 26.0", "passed": 2, "failed": 0, "scope": "Seven-language synthetic real transcription, plus three real microphone start/stop/navigation cycles; not a live human end-to-end transcription test." },
+    "speechRecheck": { "resultBundle": "AIWardrobe-Public-Layout-Speech-Recheck-56.xcresult", "device": "iPhone 18 Pro Max / iOS 27.0", "passed": 0, "failed": 1, "scope": "All seven synthetic recognizer requests returned kLSRErrorDomain 300. Subsequent diagnostic run 57 located failure in Apple's mini.json recognizer assets; reboot did not resolve it. Do not claim iOS 27 transcription passed." },
+    "latestSpeech": { "resultBundle": "AIWardrobe-Public-Release-Speech-58.xcresult", "device": "iPhone 16 Pro Max / iOS 26.0", "passed": 2, "failed": 0, "warnings": [], "scope": "Seven-language synthetic real transcription and 21 real microphone start/stop/navigation cycles with retained recognizer and availability guard. Not live human transcription." },
+    "functional58": { "resultBundle": "AIWardrobe-Public-Release-Functional-58.xcresult", "passed": 22, "failed": 2, "scope": "15 hosted tests and seven UI tests passed, including all-language navigation and HEIC import. Two UI assertions used outdated selectors/visibility expectations; corrected, then rerun on compact (59) and large (60). Preserve this failed bundle." },
+    "compactSettingsAndSelection59": { "resultBundle": "AIWardrobe-Public-Settings-And-Selection-59.xcresult", "passed": 2, "failed": 0, "scope": "Body photo editor, unsaved DeepSeek provider settings without a key, and recommendation exclusion/restore." },
+    "releaseRegression60": { "resultBundle": "AIWardrobe-Public-Release-Regression-60.xcresult", "passed": 19, "failed": 0, "warnings": [], "scope": "15 hosted tests plus keyboard conversation, provider/editor entry, clothing exclusion/restore, and real iOS 27 recognizer-error recovery to typed dialogue. Failure recovery does not establish successful recognition." },
+    "releaseImage61": { "resultBundle": "AIWardrobe-Public-Release-Image-61.xcresult", "passed": 16, "failed": 0, "warnings": [], "scope": "Latest-source hosted regression plus real JPEG decoding and malformed/empty AI image rejection." },
+    "providerFixtures61": "Six text adapters, two image adapters, consent and endpoint gates, synthetic test privacy, HTTP failures, valid PNG parsing and malformed image rejection passed locally; no live provider requests.",
+    "smallDarkLargeText62": { "resultBundle": "AIWardrobe-Public-Small-Dark-62.xcresult", "device": "iPhone SE (3rd generation), iOS 26.0, dark appearance, XXXL Dynamic Type", "passed": 2, "failed": 0, "scope": "English keyboard conversation and German navigation/favorites/reopen/collapse, with all-tab screenshots. Not a guarantee for every accessibility font size." },
+    "conversationCollapse63": { "resultBundle": "AIWardrobe-Public-Conversation-Collapse-63.xcresult", "device": "iPhone 18 Pro Max, iOS 27.0", "passed": 1, "failed": 0, "scope": "English and Simplified Chinese: title-row and arrow collapse, return to original compact input height, reopen with retained messages, dismiss keyboard." },
+    "smallCollapse63": { "resultBundle": "AIWardrobe-Public-Small-Collapse-63.xcresult", "passed": 0, "failed": 1, "scope": "English collapse passed; Chinese typing failed before receiving keyboard focus. Added explicit focus/keyboard assertions for rerun; preserve original failure." },
+    "smallCollapse64": { "resultBundle": "AIWardrobe-Public-Small-Collapse-64.xcresult", "passed": 1, "failed": 0, "scope": "Both English and Chinese header/arrow collapse, compact-height restoration and retained history on iPhone SE with XXXL dark appearance." },
+    "measurementDevelopment65And66": "Conversion unit tests passed in both bundles; two UI tests failed. Run 65 exposed grouped input focus; run 66 exposed the QA simulator's retained U.S. measurement preference despite an AppleLocale-only region override. Inputs now have separate accessible fields and tests explicitly configure region plus measurement preference. Neither failed bundle is counted as passing.",
+    "regionalMeasurements67": { "resultBundle": "AIWardrobe-Public-Regional-Measurements-67.xcresult", "passed": 19, "failed": 0, "warnings": [], "scope": "17 hosted tests plus four regional unit entry/persistence cases and metric/private conversation regression on large iPhone." },
+    "smallMeasurements67And68": "Failed: French 70,5 appeared as 70,589 after blur/navigation, despite correct immediate typed value. Preserved both failures; numeric input autocorrection disabled and explicit focus dismissal added before result 69.",
+    "smallMeasurements69": { "resultBundle": "AIWardrobe-Public-Small-Measurements-69.xcresult", "passed": 1, "failed": 0, "scope": "US, UK, France and Chinese-interface/US-region input/save/reopen all passed after numeric-input correction; iPhone SE, iOS 26, dark/XXXL." },
+    "regionalFinal70": { "resultBundle": "TestResults/ReleaseCandidate70/RegionalFinal70.xcresult", "passed": 20, "failed": 0, "warnings": [], "scope": "17 hosted tests plus regional units, private metric layout/conversation, and English/Chinese header/arrow collapse/reopen. Large iPhone, iOS 27." },
+    "smallFinal70": { "resultBundle": "TestResults/ReleaseCandidate70/SmallFinal70.xcresult", "passed": 2, "failed": 0, "warnings": [], "scope": "Repeat four regional unit entry/save/reopen cases and English/Chinese collapse/reopen on SE, iOS 26, dark/XXXL. Numeric post-blur value now remains correct." },
+    "screenshots": "All 28 local store screenshots refreshed from the current layout build and verified for dimensions/nonblank output. They are not yet uploaded to App Store Connect.",
+    "earlierRuns": "Result 51 had an incorrect full-stage accessibility-frame assertion; result 53 did not run due to an invalid test target. Both are retained, not counted as passes.",
+    "physicalDevice": "Candidate 70 installed successfully on user's iPhone 16 Pro Max. Candidate 67 launch attempt was denied because the phone was locked. User acceptance remains pending; install/launch is not physical functional validation."
+  },
+  "archive": "ReleaseCandidates/candidate-75/AIWardrobe-Build2.xcarchive",
+  "archiveVerification": "Archive succeeded; deep/strict signature validation passed; verified public bundle com.tinyworm.AIWardrobe.Public, build 2 and portrait-only orientation. Not uploaded.",
+  "localDistributionExport": "ReleaseCandidates/candidate-75/AppStoreExport/AIWardrobe.ipa",
+  "localDistributionSHA256": "8e929619f0d5b18cb73d60f5e55bc6d473ae4c22995a2798ecce17e272fa941f",
+  "localDistributionStatus": "App Store Connect distribution export succeeded with destination=export and automatic signing, preserving build 2. Local export is not Apple server-side upload/validation or App Review approval.",
+  "latestScreenshotCapture": "All 28 screenshots recaptured for candidate 74, with explicit per-region measurement preferences. Seven Profile screenshots refreshed for candidate 75 after correcting duplicate empty imperial input hints; other tabs unchanged. Release verifier passed. Not uploaded to App Store Connect."
+}

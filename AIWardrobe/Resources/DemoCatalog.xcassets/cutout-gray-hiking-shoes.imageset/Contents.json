@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "gray-hiking-shoes.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

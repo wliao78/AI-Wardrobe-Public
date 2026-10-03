@@ -4,10 +4,13 @@ enum GarmentCatalogImageService {
     /// The closet's product image is independent of the quick try-on overlay.
     /// Keeping the full source frame avoids cutting off sleeves or shirt hems.
     static func catalogJPEG(from data: Data) -> Data? {
-        guard let prepared = ImageUtilities.preparedGarmentJPEG(from: data),
-              let original = UIImage(data: prepared) else { return nil }
+        guard let prepared = ImageUtilities.preparedGarmentJPEG(from: data) else { return nil }
+        return catalogJPEG(prepared: prepared, cutout: GarmentCutoutService.transparentPNG(from: prepared))
+    }
+    static func catalogJPEG(prepared: Data, cutout: Data?) -> Data? {
+        guard let original = UIImage(data: prepared) else { return nil }
         let candidate: UIImage
-        if let png = GarmentCutoutService.transparentPNG(from: prepared),
+        if let png = cutout.flatMap(GarmentCutoutService.fittedPNG),
            let cutout = UIImage(data: png) {
             candidate = cutout
         } else {

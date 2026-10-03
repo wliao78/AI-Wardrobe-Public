@@ -14,7 +14,13 @@ final class PublicWeather: NSObject, @preconcurrency CLLocationManagerDelegate {
     private var timeout: Task<Void, Never>?
     var temperature: String {
         guard let celsius else { return "—" }
-        return Measurement(value: celsius, unit: UnitTemperature.celsius).formatted(.measurement(width: .abbreviated, usage: .weather))
+        return Self.formattedTemperature(celsius, locale: .current)
+    }
+    static func formattedTemperature(_ celsius: Double, locale: Locale) -> String {
+        Measurement(value: celsius, unit: UnitTemperature.celsius).formatted(
+            .measurement(width: .abbreviated, usage: .weather,
+                         numberFormatStyle: .number.precision(.fractionLength(1))).locale(locale)
+        )
     }
     override init() { super.init(); manager.delegate = self; manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers }
     func refresh() async {
@@ -22,14 +28,16 @@ final class PublicWeather: NSObject, @preconcurrency CLLocationManagerDelegate {
         loading = true; defer { loading = false }
         let location = await withCheckedContinuation { continuation in
             self.continuation = continuation
+            // Install the deadline before a synchronous denial can call finish.
+            timeout?.cancel()
+            timeout = Task { try? await Task.sleep(for: .seconds(20)); if !Task.isCancelled { self.finish(nil) } }
             switch manager.authorizationStatus {
             case .notDetermined: manager.requestWhenInUseAuthorization()
             case .authorizedAlways, .authorizedWhenInUse: manager.requestLocation()
             default: finish(nil)
             }
-            timeout = Task { try? await Task.sleep(for: .seconds(20)); if !Task.isCancelled { self.finish(nil) } }
         }
-        guard let location else { label = L("weatherUnavailable"); return }
+        guard let location else { label = L("weatherUnavailable"); celsius = nil; symbol = "cloud"; return }
         do {
             let current = try await WeatherService.shared.weather(for: location, including: .current)
             celsius = current.temperature.converted(to: .celsius).value

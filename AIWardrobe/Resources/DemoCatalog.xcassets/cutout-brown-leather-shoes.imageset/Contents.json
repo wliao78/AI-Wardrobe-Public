@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "brown-leather-shoes.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

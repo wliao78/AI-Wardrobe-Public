@@ -16,6 +16,7 @@ final class SpeechRecognitionTests: XCTestCase {
             let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: language, withExtension: "aiff"))
             let locale = SpeechInputService.locale(language: language, region: region)
             let recognizer = try XCTUnwrap(SFSpeechRecognizer(locale: locale))
+            print("Speech fixture \(language): available=\(recognizer.isAvailable), onDeviceSupported=\(recognizer.supportsOnDeviceRecognition)")
             let request = SFSpeechURLRecognitionRequest(url: url)
             request.requiresOnDeviceRecognition = false
             request.shouldReportPartialResults = true
@@ -44,7 +45,15 @@ private enum RecognitionFixture {
         recognizer.recognitionTask(with: request) { result, error in
             let text = result?.bestTranscription.formattedString
             let final = result?.isFinal == true
-            let diagnostic = error.map { "\(($0 as NSError).domain) \(($0 as NSError).code)" }
+            let diagnostic = error.map { error in
+                var diagnostic = ""; var current: NSError? = error as NSError
+                for _ in 0..<3 {
+                    guard let issue = current else { break }
+                    diagnostic += "\(issue.domain) \(issue.code): \(issue.localizedDescription); "
+                    current = issue.userInfo[NSUnderlyingErrorKey] as? NSError
+                }
+                return diagnostic
+            }
             Task { @MainActor in receive(text, final, diagnostic) }
         }
     }
