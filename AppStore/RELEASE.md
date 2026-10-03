@@ -9,6 +9,7 @@ This is preparation material, not a statement that the app is submitted or appro
 - Replaced/uploaded four current screenshots for each of these six locales. Media Manager displays four screenshots per locale; the checked order is Today, Closet, Try on, Me. Upload completion can reorder files, so keyboard ordering was checked after upload.
 - Automatic release after App Review approval remains selected. No review submission or public release has occurred. Simplified Chinese store-name selection remains outstanding; the user has been asked whether to retain AI My Wardrobe or try AI My Wardrobe·穿搭日记. Do not treat a pending name choice as approved.
 - Historical login, archive and upload statements below are dated records, superseded by this latest state where applicable. Renewed physical build-2 acceptance and live paid AI testing are still not counted as passed.
+- A subsequent field-by-field comparison found German version metadata had only the new offline note, with the promotional text, main description, keywords and URLs absent. Filled all five fields from `Metadata/de-DE.json` and saved. All five fields now exactly match the local metadata for all six existing storefront locales. App Information names/subtitles and the 18+ content-rights declaration were read back; Published App Privacy remains present. This audit caught an omission rather than assuming that an existing localization meant complete content.
 
 ## Conditional release authorization — 2026-10-03
 
