@@ -2,6 +2,13 @@
 
 This is preparation material, not a statement that the app is submitted or approved.
 
+## Simplified Chinese name resolved — 2026-10-03
+
+- The user explicitly chose **AI我的衣橱穿搭**. Temporarily removed version 1.0 (2) from the review draft to enable adding the seventh localization; the uploaded build was not deleted.
+- Saved the Simplified Chinese name and subtitle, reloaded App Information and read back the exact selected name. All five version metadata fields were filled from `Metadata/zh-Hans.json`, saved and compared with exact matches.
+- Uploaded all four latest Simplified Chinese screenshots. Their final order still needs read-back verification after asynchronous upload processing.
+- The Apple web session expired before the Simplified Chinese Privacy Policy URL could be added and before the final review submission. One direct return to the scoped app URL also redirected to login. Human login has been requested; do not report submission or release as complete. The naming choice is no longer a blocker.
+
 ## App Store Connect follow-up — 2026-10-03
 
 - The existing Chrome session recovered. Final version 1.0 build 2 (`86e7bbbe-755b-445c-b9c8-66394dba56bb`) replaced the old build 1 association and was saved on the version page.
